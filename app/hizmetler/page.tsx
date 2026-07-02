@@ -3,6 +3,7 @@ import Link from "next/link";
 import {
   buildServicesNavGroups,
   getServicesByCategory,
+  getYgmFeaturedServices,
   serviceCategories,
 } from "@/content/site-content";
 import PageHeader from "@/components/PageHeader";
@@ -10,7 +11,7 @@ import PageHeader from "@/components/PageHeader";
 export const metadata: Metadata = {
   title: "Hizmetlerimiz | ORTUNÇ YGM",
   description:
-    "ORTUNÇ Yetkilendirilmiş Gümrük Müşavirliği A.Ş. gümrük, lojistik ve danışmanlık hizmetleri: antrepo, geçici ithalat, dahilde işleme, onaylanmış kişi statüsü tespit işlemleri ve daha fazlası.",
+    "ORTUNÇ Yetkilendirilmiş Gümrük Müşavirliği A.Ş. YGM ve danışmanlık hizmetleri: antrepo, geçici ithalat, dahilde işleme, onaylanmış kişi statüsü tespit işlemleri ve daha fazlası.",
 };
 
 export default function HizmetlerPage() {
@@ -18,12 +19,15 @@ export default function HizmetlerPage() {
 
   return (
     <>
-      <PageHeader breadcrumb="Hizmetlerimiz" title="Hizmetlerimiz" />
+      <PageHeader title="Hizmetlerimiz" />
       <section className="bg-brand-mist px-6 py-14 sm:px-10 lg:py-20">
         <div className="mx-auto max-w-6xl">
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
             {serviceCategories.map((category) => {
-              const count = getServicesByCategory(category.key).length;
+              const count =
+                category.key === "gumruk"
+                  ? getYgmFeaturedServices().length
+                  : getServicesByCategory(category.key).length;
               return (
                 <Link
                   key={category.slug}
@@ -46,10 +50,10 @@ export default function HizmetlerPage() {
           <div className="mt-14 rounded-2xl border border-brand-line bg-white p-7 sm:p-10">
             <h2 className="text-[22px] font-extrabold text-brand-ink">Tüm hizmetlerimiz</h2>
             <p className="mt-2 text-[15px] leading-relaxed text-brand-muted">
-              Gümrük, lojistik ve danışmanlık alanlarında sunduğumuz {navGroups.reduce((n, g) => n + g.links.length, 0)}{" "}
+              YGM ve danışmanlık alanlarında sunduğumuz {navGroups.reduce((n, g) => n + g.links.length, 0)}{" "}
               hizmete aşağıdan ulaşabilirsiniz.
             </p>
-            <div className="mt-8 grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4">
+            <div className="mt-8 grid grid-cols-1 gap-10 sm:grid-cols-2">
               {navGroups.map((group) => (
                 <div key={group.title}>
                   <Link

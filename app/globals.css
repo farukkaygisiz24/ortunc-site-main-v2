@@ -32,6 +32,22 @@ body {
   overflow-x: clip;
 }
 
+.site-watermark {
+  z-index: 40;
+}
+
+.site-watermark__image {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: min(72vw, 26rem);
+  height: auto;
+  transform: translate(-50%, -50%);
+  opacity: 0.07;
+  background: transparent;
+  user-select: none;
+}
+
 html {
   overflow-x: clip;
 }

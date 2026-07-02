@@ -21,7 +21,6 @@ export default function MevzuatPage() {
   return (
     <>
       <PageHeader
-        breadcrumb="Mevzuat"
         title={mevzuatTitle}
         subtitle={`${mevzuatCitation} · ${mevzuatAmendmentCitation}`}
       />

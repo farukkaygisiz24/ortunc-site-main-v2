@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { contact, siteInfo } from "@/content/site-content";
+import { contact, serviceCategories, siteInfo } from "@/content/site-content";
 
 export default function Footer() {
   return (
@@ -44,10 +44,7 @@ export default function Footer() {
               Hizmetlerimiz
             </Link>
             <Link href="/hizmetler/gumruk-hizmetleri" className="hover:text-white">
-              Gümrük Hizmetleri
-            </Link>
-            <Link href="/hizmetler/lojistik-hizmetleri" className="hover:text-white">
-              Lojistik Hizmetleri
+              {serviceCategories.find((c) => c.key === "gumruk")!.title}
             </Link>
             <Link href="/hizmetler/danismanlik-hizmetleri" className="hover:text-white">
               Danışmanlık Hizmetleri

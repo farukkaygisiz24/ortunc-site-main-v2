@@ -1,6 +1,7 @@
 import Link from "next/link";
 import MevzuatUpdatesCarousel from "@/components/MevzuatUpdatesCarousel";
 import mevzuatIndex from "@/public/data/mevzuat-guncellemeleri/index.json";
+import { isMevzuatGuncellemeleriEnabled } from "@/lib/featureFlags";
 import { MEVZUAT_GUNCELLEMELERI_LIST_PATH, decodeHtmlEntities } from "@/lib/mevzuatGuncellemeleri";
 import { filterRecentMevzuatUpdates } from "@/lib/mevzuatDate";
 import type { MevzuatUpdate } from "@/lib/mevzuatUpdates";
@@ -16,6 +17,10 @@ function toCarouselItem(item: (typeof mevzuatIndex.items)[number]): MevzuatUpdat
 }
 
 export default function MevzuatUpdatesSection() {
+  if (!isMevzuatGuncellemeleriEnabled()) {
+    return null;
+  }
+
   const recentItems = filterRecentMevzuatUpdates(mevzuatIndex.items).map(toCarouselItem);
 
   return (

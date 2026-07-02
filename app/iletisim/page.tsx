@@ -30,7 +30,7 @@ export default function IletisimPage() {
 
   return (
     <>
-      <PageHeader breadcrumb="İletişim" title="İletişim" />
+      <PageHeader title="İletişim" />
       <section className="bg-white px-6 py-14 sm:px-10 lg:py-20">
         <div className="mx-auto flex max-w-6xl flex-col gap-8">
           <div className="grid grid-cols-1 gap-7 sm:grid-cols-2 lg:gap-x-8">

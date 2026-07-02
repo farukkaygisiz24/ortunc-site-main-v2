@@ -4,7 +4,10 @@ import type { IconKey } from "@/components/ServiceIcon";
 export type ServiceItem = {
   icon: IconKey;
   category: ServiceCategoryKey;
+  /** Kurumsal / hizmet sayfası başlığı */
   title: string;
+  /** Ana sayfa kart yığını kısa başlığı */
+  carouselTitle?: string;
   slug: string;
   image: string;
   description: string;
@@ -13,7 +16,12 @@ export type ServiceItem = {
 export function slugifyService(title: string): string {
   return title
     .toLocaleLowerCase("tr-TR")
+    .replace(/ğ/g, "g")
+    .replace(/ü/g, "u")
+    .replace(/ş/g, "s")
     .replace(/ı/g, "i")
+    .replace(/ö/g, "o")
+    .replace(/ç/g, "c")
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/^-+|-+$/g, "");
 }
@@ -114,60 +122,47 @@ const serviceCatalog: Omit<ServiceItem, "slug">[] = [
   {
     icon: "warehouse",
     category: "gumruk",
-    title: "Genel ve Özel Antrepolara İlişkin Tespit İşlemleri",
+    carouselTitle: "Antrepo Tespit İşlemleri (AN1 – AN8)",
+    title: "Antrepo Tespit İşlemleri (AN1 – AN8)",
     image: U.warehouse,
     description:
-      "Antrepoya eşya giriş-çıkış işlemlerinin yapılması, antreponun açılması, genişletme/daraltma, tadilat, adres değişikliği ve devir işlemlerine ilişkin başvuru dosyalarının ön incelemesi ve rapor hazırlanması (AN1–AN8).",
+      "Gümrük antrepolarının açılış, genişletme, daraltma, devir ve adres değişikliği işlemleri ile antrepolara eşya giriş-çıkış süreçlerinin mevzuata uygunluğunu tespit ediyor ve raporlarını eksiksiz tanzim ediyoruz.",
   },
   {
     icon: "truck",
     category: "gumruk",
-    title: "Geçici İthalat Rejimine İlişkin Tespit İşlemleri",
-    image: U.cargoBoxes,
+    carouselTitle: "Geçici İthalat Rejimi Tespitleri (GC1 - GC2)",
+    title: "Geçici İthalat Rejimine İlişkin Tespit İşlemleri (GC1, GC2)",
+    image: U.exportShip,
     description:
-      "Kısmi ve tam muafiyet suretiyle geçici ithalatı yapılan eşyaya ek süre talebine ilişkin tespit işlemleri (GC1, GC2).",
+      "Geçici ithalat rejimi kapsamında Türkiye gümrük bölgesine getirilen eşyaların yasal durum ve kullanım amaçlarına uygunluğunu denetliyor, süre uzatım taleplerine esas teşkil eden raporları uzmanlıkla hazırlıyoruz.",
   },
   {
     icon: "certificate",
     category: "gumruk",
-    title: "Menşe Belgelerinin Sonradan Kontrol Edilmesi",
-    image: U.certificate,
+    carouselTitle: "Menşe Belgelerinin Sonradan Kontrolü (SK1)",
+    title: "Menşe Belgelerinin Sonradan Kontrol Edilmesi (SK1)",
+    image: U.globalTrade,
     description:
-      "Sonradan kontrol için gönderilen EUR.1 ve benzeri menşe belgelerinin şekil şartları ile belge kapsamı eşyanın menşeine ilişkin tespit raporu düzenlenmesi (SK1).",
+      "İhraç edilen eşyaların menşe kurallarına uygunluğunu ve menşe ispat belgelerinin doğruluğunu mevzuat çerçevesinde inceliyor, sonradan kontrol işlemlerine esas teşkil eden raporlama süreçlerini eksiksiz yönetiyoruz.",
   },
   {
     icon: "badge",
     category: "gumruk",
-    title: "Onaylanmış Kişi Statü Belgesi Alınmasına İlişkin Tespit İşlemleri",
-    image: U.corporate,
+    carouselTitle: "Onaylanmış Kişi Statüsü (OKSB)",
+    title: "Onaylanmış Kişi Statü Belgesi (OKSB) Ön İncelemesi",
+    image: U.legislation,
     description:
-      "Onaylanmış kişi statü belgesi müracaatına ilişkin ön inceleme ve tespit işlemleri (OK1).",
+      "Dış ticaret işlemlerinde büyük kolaylıklar sağlayan OKSB müracaatlarının ön inceleme süreçlerini gerçekleştiriyor; aranan kurumsal ve mali şartları titizlikle inceleyerek gerekli tespit raporlarını hazırlıyoruz.",
   },
   {
     icon: "layers",
     category: "gumruk",
-    title: "Dahilde İşleme Rejimine İlişkin Tespit İşlemleri",
+    carouselTitle: "Dahilde İşleme Rejimi (DİR) Tespit İşlemleri",
+    title: "Dahilde İşleme Rejimi DR1 ve DR2 Tespit Raporları",
     image: U.factory,
     description:
-      "Dahilde işleme rejimi kapsamında geçici ithal edilen eşyaya ek süre talebine ilişkin tespit işlemleri (DR1, DR2).",
-  },
-
-  // —— Lojistik Hizmetleri ——
-  {
-    icon: "warehouse",
-    category: "lojistik",
-    title: "Lojistik Hizmetler",
-    image: U.trucking,
-    description:
-      "Antrepo ve depo yönetimi, sevkiyat planlaması ile yurt içi ve yurt dışı taşımacılık süreçlerinde gümrük operasyonlarınızla entegre lojistik koordinasyon hizmeti sunuyoruz.",
-  },
-  {
-    icon: "truck",
-    category: "lojistik",
-    title: "Dış Ticarette Kurye Hizmetleri",
-    image: U.courier,
-    description:
-      "Dış ticaret süreçlerinizde gerekli doküman ve numunelerin hızlı, güvenli ve ekonomik şekilde ulaştırılması için kurye ve evrak lojistiği desteği sağlıyoruz.",
+      "Dahilde İşleme İzin Belgesi (DİİB) kapsamındaki tüm girdi, malzeme ve bileşenlerin üretimde kullanım durumlarını tespit ediyor, ithal eşyalarının rejim şartlarına uygunluğunu inceliyor ve DR1-DR2 raporlarınızı güvenle hazırlıyoruz.",
   },
 
   // —— Danışmanlık Hizmetleri ——
@@ -177,47 +172,15 @@ const serviceCatalog: Omit<ServiceItem, "slug">[] = [
     title: "Danışmanlık ve Denetim Hizmetleri",
     image: U.teamMeeting,
     description:
-      "YYS sahibi firmaların dış ticaret işlemlerinin incelenerek yıllık faaliyet raporlarının düzenlenmesi; ithalat ve ihracat işlemlerinde tarife, rejim, vergi, kıymet ve belge uyumunun denetlenmesi.",
-  },
-  {
-    icon: "clipboard",
-    category: "danismanlik",
-    title: "Mevzuat Danışmanlığı",
-    image: U.legislation,
-    description:
-      "Gümrük ve dış ticaret mevzuatındaki güncellemeleri takip ederek firmalarınızın operasyonlarını yasal çerçeveye uygun şekilde planlamanıza yardımcı oluyoruz.",
-  },
-  {
-    icon: "certificate",
-    category: "danismanlik",
-    title: "Tarife Cetveli IRK ve İGV Kararına İlişkin Başvurular",
-    image: U.finance,
-    description:
-      "İthalat rejimi kapsamında tarife cetveli, menşe ve vergi uygulamalarına ilişkin başvuru süreçlerinde mevzuat analizi ve dosya hazırlığı danışmanlığı veriyoruz.",
+      "Firmaların dış ticaret işlemlerinin incelenerek yıllık faaliyet raporlarının düzenlenmesi; ithalat ve ihracat işlemlerinde tarife, rejim, vergi, kıymet ve belge uyumunun denetlenmesine yardımcı oluyoruz.",
   },
   {
     icon: "badge",
     category: "danismanlik",
-    title: "Teşvik Danışmanlığı",
-    image: U.growth,
+    title: "Yetkilendirilmiş Yükümlü Statü (YYS) Danışmanlığı",
+    image: U.handshake,
     description:
-      "Yatırım ve ihracat teşviklerinden azami düzeyde ve doğru şekilde yararlanmanız için mevzuata hakim uzman kadromuzla başvuru ve izleme danışmanlığı sunuyoruz.",
-  },
-  {
-    icon: "layers",
-    category: "danismanlik",
-    title: "Teminat Danışmanlığı",
-    image: U.security,
-    description:
-      "Gümrük ve dış ticaret işlemlerinizde kullanılan teminat mektupları, ithalat-ihracat bakiyeleri ve belge kullanım süreçlerinin takibi konusunda danışmanlık hizmeti veriyoruz.",
-  },
-  {
-    icon: "badge",
-    category: "danismanlik",
-    title: "Yetkilendirilmiş Yükümlü Statüsü (YYS) Danışmanlığı",
-    image: U.officeTeam,
-    description:
-      "YYS belgesi başvuru şartları, süreç yönetimi ve belge sonrası uyum faaliyetleri konusunda AEO/YYS kapsamında danışmanlık desteği sağlıyoruz.",
+      "Global ticarette en üst düzey prestij ve kolaylık sağlayan Yetkilendirilmiş Yükümlü Statüsü (YYS) belgelendirme süreçlerinizi yönetiyor; kurumsal dış ticaret risk analizleri ve önleyici iç denetim hizmetleriyle firmanızı geleceğe hazırlıyoruz.",
   },
   {
     icon: "clipboard",
@@ -226,30 +189,6 @@ const serviceCatalog: Omit<ServiceItem, "slug">[] = [
     image: U.inspection,
     description:
       "Gümrük idaresi nezdinde yürütülen sonradan kontrol denetimlerine hazırlık sürecinde bilgi ve belge yönetimi, mevzuat uyumu ve süreç danışmanlığı sunuyoruz.",
-  },
-  {
-    icon: "certificate",
-    category: "danismanlik",
-    title: "Damping Soruşturmaları Danışmanlığı",
-    image: U.market,
-    description:
-      "Anti-damping, telafi edici ve korunma önlemleri kapsamındaki soruşturma ve uygulamalara ilişkin mevzuat analizi ve süreç danışmanlığı hizmeti veriyoruz.",
-  },
-  {
-    icon: "layers",
-    category: "danismanlik",
-    title: "Dış Ticarette Teknik Düzenlemeler ve Standardizasyon",
-    image: U.engineering,
-    description:
-      "Ürün güvenliği, teknik düzenlemeler ve standardizasyon gereklilikleri açısından dış ticaret operasyonlarınızın uygunluk değerlendirmesi konusunda danışmanlık sağlıyoruz.",
-  },
-  {
-    icon: "clipboard",
-    category: "danismanlik",
-    title: "Diğer Danışmanlık Hizmetleri",
-    image: U.handshake,
-    description:
-      "Gümrük, dış ticaret ve lojistik alanlarında ihtiyaç duyduğunuz özel konularda proje bazlı danışmanlık ve iş takibi hizmeti sunuyoruz.",
   },
 ];
 
@@ -263,16 +202,22 @@ export function getServicesByCategory(category: ServiceCategoryKey): ServiceItem
   return services.filter((service) => service.category === category);
 }
 
-/** Ana sayfa kart yığını — kategori başına öne çıkan hizmetler (6 kart). */
-const HOMEPAGE_CAROUSEL_TITLES = [
-  "Gümrük Müşavirliği",
-  "İthalat Gümrükleme",
-  "İhracat Gümrükleme",
-  "Yurt Dışı Gümrükleme Hizmeti",
-  "Lojistik Hizmetler",
-  "Danışmanlık ve Denetim Hizmetleri",
+/** Ana sayfa kart yığını ve YGM öne çıkan hizmetler (sıralı). */
+const YGM_FEATURED_SLUGS = [
+  "antrepo-tespit-islemleri-an1-an8",
+  "onaylanmis-kisi-statu-belgesi-oksb-on-incelemesi",
+  "yetkilendirilmis-yukumlu-statu-yys-danismanligi",
+  "dahilde-isleme-rejimi-dr1-ve-dr2-tespit-raporlari",
+  "gecici-ithalat-rejimine-iliskin-tespit-islemleri-gc1-gc2",
+  "mense-belgelerinin-sonradan-kontrol-edilmesi-sk1",
 ] as const;
 
-export const homepageCarouselServices: ServiceItem[] = HOMEPAGE_CAROUSEL_TITLES.map(
-  (title) => services.find((s) => s.title === title)!,
-);
+export function getYgmFeaturedHref(service: ServiceItem): string {
+  return `/hizmetler/gumruk-hizmetleri#${service.slug}`;
+}
+
+export function getYgmFeaturedServices(): ServiceItem[] {
+  return YGM_FEATURED_SLUGS.map((slug) => services.find((s) => s.slug === slug)!);
+}
+
+export const homepageCarouselServices: ServiceItem[] = getYgmFeaturedServices();

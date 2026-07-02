@@ -12,7 +12,6 @@ export default function MevzuatGuncellemeleriPage() {
   return (
     <>
       <PageHeader
-        breadcrumb="Mevzuat Güncellemeleri"
         title="Mevzuat Güncellemeleri"
         subtitle="Gümrük ve dış ticaret mevzuatına ilişkin güncellemeler arşivi"
       />

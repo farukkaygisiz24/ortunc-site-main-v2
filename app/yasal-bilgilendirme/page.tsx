@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 export default function YasalBilgilendirmePage() {
   return (
     <>
-      <PageHeader breadcrumb="Yasal Bilgilendirme" title="Yasal Uyarı" />
+      <PageHeader title="Yasal Uyarı" />
       <section className="bg-white px-6 py-14 sm:px-10 lg:py-16">
         <div className="mx-auto flex max-w-3xl flex-col gap-4">
           {legalNotice.map((paragraph, i) => (

@@ -2,11 +2,14 @@ import Image from "next/image";
 import Link from "next/link";
 import MevzuatUpdatesSection from "@/components/MevzuatUpdatesSection";
 import { aboutHomeSummary, hero, homepageCarouselServices, siteInfo } from "@/content/site-content";
+import { isMevzuatGuncellemeleriEnabled } from "@/lib/featureFlags";
 import FaqAccordion from "@/components/FaqAccordion";
 import ServicesCarousel from "@/components/ServicesCarousel";
 import StatsStrip from "@/components/StatsStrip";
 
 export default function Home() {
+  const mevzuatEnabled = isMevzuatGuncellemeleriEnabled();
+
   return (
     <>
       <section className="relative -mt-[var(--header-height)] overflow-hidden pt-[var(--header-height)] lg:min-h-[min(72svh,36rem)]">
@@ -65,9 +68,9 @@ export default function Home() {
 
       <ServicesCarousel items={homepageCarouselServices} />
 
-      <MevzuatUpdatesSection />
+      {mevzuatEnabled ? <MevzuatUpdatesSection /> : null}
 
-      <section className="bg-white py-12 lg:py-20">
+      <section className={`py-12 lg:py-20 ${mevzuatEnabled ? "bg-white" : "bg-brand-mist"}`}>
         <div className="mx-auto max-w-6xl px-6 sm:px-10">
           <p className="mb-3 text-[13px] font-bold uppercase tracking-[.14em] text-brand-blue">Kurumsal</p>
           <h3 className="text-[22px] font-extrabold text-brand-ink sm:text-[26px]">Hakkımızda</h3>
@@ -97,14 +100,14 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="bg-brand-mist px-6 py-16 sm:px-10 lg:py-28">
+      <section className={`px-6 py-16 sm:px-10 lg:py-28 ${mevzuatEnabled ? "bg-brand-mist" : "bg-white"}`}>
         <div className="mx-auto max-w-3xl">
           <div className="text-center">
             <p className="mb-3 text-[13px] font-bold uppercase tracking-[.14em] text-brand-blue">SSS</p>
             <h2 className="text-[28px] font-extrabold text-brand-ink sm:text-[36px]">Sık Sorulan Sorular</h2>
             <p className="mx-auto mt-3.5 max-w-md text-[15px] leading-relaxed text-brand-muted">
-              Yetkilendirilmiş Gümrük Müşavirliği sektörünü bilmeyenler için bize sorulan en sık soruları
-              cevaplamaya çalıştık.
+              Yetkilendirilmiş Gümrük Müşavirliği (YGM) uygulamaları, yasal sorumluluklar ve denetim süreçleri
+              hakkında en çok merak edilen konuları ve mevzuatsal detayları sizler için derledik.
             </p>
           </div>
           <FaqAccordion />

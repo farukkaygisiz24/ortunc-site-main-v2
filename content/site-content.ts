@@ -1,3 +1,5 @@
+import { isMevzuatGuncellemeleriEnabled } from "@/lib/featureFlags";
+
 export const siteInfo = {
   name: "ORTUNÇ Yetkilendirilmiş Gümrük Müşavirliği A.Ş.",
   shortName: "ORTUNÇ YGM",
@@ -39,18 +41,19 @@ export function isNavGroup(
 export const hero = {
   title: "ORTUNÇ Yetkilendirilmiş Gümrük Müşavirliği A.Ş.",
   subtitle:
-    "Antrepo, geçici ithalat, dahilde işleme ve onaylanmış kişi statüsü tespit işlemlerinde uzman kadromuzla yanınızdayız.",
+    "Yetkilendirilmiş Gümrük Müşavirliği hizmetlerimizde; mevzuata uygun, hızlı ve şeffaf denetim anlayışıyla işletmelerinizin dış ticaret süreçlerine değer katıyoruz.",
 };
 
 // Figures pulled directly from the "about" copy below (founding year, service
 // regions, office count) — not invented data.
 export const stats = [
-  { value: "2008", label: "Faaliyet yılımız" },
-  { value: "6", label: "Hizmet bölgesi — İstanbul, Kocaeli, Bursa, Balıkesir, Manisa, İzmir" },
-  { value: "3", label: "Merkez, şube ve ofis" },
+  { value: "2008", label: "Kuruluş yılı" },
+  { value: "Türkiye Geneli", label: "Hizmet ağı" },
+  { value: "3", label: "Stratejik Lokasyon" },
+  { value: "6", label: "Yerleşik Operasyon Bölgesi" },
 ];
 
-export type ServiceCategoryKey = "gumruk" | "lojistik" | "danismanlik";
+export type ServiceCategoryKey = "gumruk" | "danismanlik";
 
 export type ServiceCategory = {
   key: ServiceCategoryKey;
@@ -64,18 +67,10 @@ export const serviceCategories: ServiceCategory[] = [
   {
     key: "gumruk",
     slug: "gumruk-hizmetleri",
-    title: "Gümrük Hizmetleri",
+    title: "YGM Hizmetleri",
     href: "/hizmetler/gumruk-hizmetleri",
     description:
-      "Gümrük müşavirliği, ithalat-ihracat gümrükleme, dijital gümrük ve YGM kapsamındaki tespit işlemleriyle dış ticaret operasyonlarınızı uçtan uca destekliyoruz.",
-  },
-  {
-    key: "lojistik",
-    slug: "lojistik-hizmetleri",
-    title: "Lojistik Hizmetleri",
-    href: "/hizmetler/lojistik-hizmetleri",
-    description:
-      "Antrepo, depo ve sevkiyat yönetimi ile dış ticarette kurye hizmetleri dahil gümrük süreçlerinizle entegre lojistik koordinasyon sunuyoruz.",
+      "Antrepo, onaylanmış kişi statüsü, dahilde işleme, geçici ithalat ve menşe kontrolü başta olmak üzere YGM kapsamındaki tespit ve raporlama hizmetlerini mevzuata uygun şekilde sunuyoruz.",
   },
   {
     key: "danismanlik",
@@ -83,7 +78,7 @@ export const serviceCategories: ServiceCategory[] = [
     title: "Danışmanlık Hizmetleri",
     href: "/hizmetler/danismanlik-hizmetleri",
     description:
-      "Mevzuat, teşvik, teminat, YYS, sonradan kontrol ve damping başta olmak üzere dış ticaret danışmanlığının tüm alanlarında uzman destek veriyoruz.",
+      "YYS denetim ve raporlama, yetkilendirilmiş yükümlü statüsü danışmanlığı ile sonradan kontrol süreçlerinde uzman destek sunuyoruz.",
   },
 ];
 
@@ -91,20 +86,22 @@ export function getServiceCategory(slug: string): ServiceCategory | undefined {
   return serviceCategories.find((category) => category.slug === slug);
 }
 
-export { services, getServicesByCategory, homepageCarouselServices, getServiceHref } from "@/content/services";
+export { services, getServicesByCategory, homepageCarouselServices, getServiceHref, getYgmFeaturedServices, getYgmFeaturedHref } from "@/content/services";
 export type { ServiceItem } from "@/content/services";
 
-import { getServiceHref, getServicesByCategory } from "@/content/services";
+import { getServiceHref, getServicesByCategory, getYgmFeaturedServices, getYgmFeaturedHref } from "@/content/services";
+
+const CATEGORY_HREFS = {
+  gumruk: "/hizmetler/gumruk-hizmetleri",
+  danismanlik: "/hizmetler/danismanlik-hizmetleri",
+} as const;
 
 /** Header mega menü — UGM tarzı gruplu hizmet listesi */
 export function buildServicesNavGroups(): NavMegaGroup[] {
-  const gumrukHref = "/hizmetler/gumruk-hizmetleri";
-  const lojistikHref = "/hizmetler/lojistik-hizmetleri";
-  const danismanlikHref = "/hizmetler/danismanlik-hizmetleri";
+  const gumrukHref = CATEGORY_HREFS.gumruk;
+  const danismanlikHref = CATEGORY_HREFS.danismanlik;
 
-  const gumruk = getServicesByCategory("gumruk");
-  const gumrukOperational = gumruk.slice(0, 7);
-  const ygmTespit = gumruk.slice(7);
+  const ygmTespit = getYgmFeaturedServices();
 
   const toLinks = (items: ReturnType<typeof getServicesByCategory>, categoryHref: string) =>
     items.map((s) => ({
@@ -112,21 +109,17 @@ export function buildServicesNavGroups(): NavMegaGroup[] {
       href: getServiceHref(categoryHref, s.slug),
     }));
 
+  const toFeaturedLinks = (items: ReturnType<typeof getYgmFeaturedServices>) =>
+    items.map((s) => ({
+      label: s.title,
+      href: getYgmFeaturedHref(s),
+    }));
+
   return [
     {
-      title: "Gümrük Hizmetleri",
+      title: serviceCategories.find((c) => c.key === "gumruk")!.title,
       href: gumrukHref,
-      links: toLinks(gumrukOperational, gumrukHref),
-    },
-    {
-      title: "YGM Tespit İşlemleri",
-      href: `${gumrukHref}#ygm-tespit`,
-      links: toLinks(ygmTespit, gumrukHref),
-    },
-    {
-      title: "Lojistik Hizmetleri",
-      href: lojistikHref,
-      links: toLinks(getServicesByCategory("lojistik"), lojistikHref),
+      links: toFeaturedLinks(ygmTespit),
     },
     {
       title: "Danışmanlık Hizmetleri",
@@ -144,20 +137,22 @@ export const nav: NavItem[] = [
     groups: buildServicesNavGroups(),
   },
   { label: "Hakkımızda", href: "/hakkimizda" },
-  {
-    label: "Mevzuat",
-    children: [
-      { label: "Mevzuat", href: "/mevzuat" },
-      { label: "Mevzuat Güncellemeleri", href: "/mevzuat-guncellemeleri" },
-    ],
-  },
+  isMevzuatGuncellemeleriEnabled()
+    ? {
+        label: "Mevzuat",
+        children: [
+          { label: "Mevzuat", href: "/mevzuat" },
+          { label: "Mevzuat Güncellemeleri", href: "/mevzuat-guncellemeleri" },
+        ],
+      }
+    : { label: "Mevzuat", href: "/mevzuat" },
   { label: "İletişim", href: "/iletisim" },
 ];
 
 export const headerNav = nav.filter((item) => !("href" in item) || item.href !== "/iletisim");
 
 export const servicesSlogan =
-  "2008'den bu yana uzman YGM kadromuzla antrepo, rejim ve statü tespit süreçlerinizi mevzuata uygun, hızlı ve çözüm odaklı yürütüyor; dış ticaret operasyonlarınıza güven katıyoruz.";
+  "2008 yılından bu yana, uzman YGM kadromuzla antrepo, rejim ve statü tespit süreçlerinizi gümrük mevzuatına tam uyumlu, hızlı ve şeffaf bir şekilde yönetiyoruz. Bağımsız denetim yaklaşımımızla, riskleri minimize ederek dış ticaret işlemlerinize kurumsal güvence katıyoruz.";
 
 export const faq = [
   {
@@ -183,14 +178,97 @@ export const faq = [
 ];
 
 export const about = [
-  "YGM uygulamasının başladığı 2008 yılından itibaren faaliyetine devam etmekte olan Şirketimiz, isim ve statü değiştirerek Anonim Şirket statüsünde, Ticaret Bakanlığı tarafından belirlenen görevleri ifa etmektedir.",
-  "Şirketimiz gerek altyapı ve gerekse bilgi ve iletişim teknolojileri açısından tam donanımlı olup, Şube ve ofisleri arasında online bağlantıları mevcuttur.",
-  "Şirketimiz teknolojik alt yapısı ve uzman kadrosuyla İstanbul, Kocaeli, Bursa, Balıkesir, Manisa ve İzmir bölgelerinde hizmet vermektedir.",
-  "Şirketimiz Yetkilendirilmiş Gümrük Müşavirleri, gümrük teşkilatında görev yapmış bürokratlar ve uzun yıllar kurumsal firmalarda hizmet vermiş gümrük müşavirlerinden oluşmaktadır.",
-  "Şirket personelimizin tamamı üniversite mezunu olup, Bakanlık tarafından açılan sınavı kazanarak belge almaya hak kazanmış Gümrük Müşavir Yardımcılarından oluşmaktadır.",
-  "Şirket merkezimiz İstanbul’da olup, Bursa’da Şube Müdürlüğü, İzmir’de ise ofis olarak hizmet vermekteyiz.",
-  "Kamu adına hizmet vermenin bilincinde olarak gerçekleştirilen iş ve işlemlerin gümrük mevzuatına uygun olmasının yanısıra, müşterilerimizin talep ve menfaatleri de gözetilerek çözüm odaklı, hızlı ve kaliteli hizmet sunulması temel felsefemizdir.",
+  "ORTUNÇ Yetkilendirilmiş Gümrük Müşavirliği A.Ş., Yetkilendirilmiş Gümrük Müşavirliği uygulamasının hayata geçirildiği 2008 yılından bu yana faaliyetlerini kesintisiz olarak sürdürmektedir. Anonim şirket yapısıyla faaliyet gösteren şirketimiz, Ticaret Bakanlığı tarafından verilen görev ve yetkileri 4458 sayılı Gümrük Kanunu ve ilgili mevzuat hükümleri doğrultusunda bağımsızlık, tarafsızlık ve güvenilirlik ilkeleri çerçevesinde yerine getirmektedir.",
 ];
+
+export type AboutSubsection = {
+  title: string;
+  paragraphs: string[];
+};
+
+export type AboutValue = {
+  title: string;
+  description: string;
+};
+
+export const aboutPage = {
+  intro: about,
+  subsections: [
+    {
+      title: "Güçlü Organizasyon Yapısı ve Yaygın Hizmet Ağı",
+      paragraphs: [
+        "Merkez ofisimiz İstanbul'da, Bursa Şube Müdürlüğümüz ve İzmir Ofisimiz ile birlikte faaliyet göstermekteyiz. İstanbul, Kocaeli, Bursa, Balıkesir, Manisa ve İzmir başta olmak üzere hizmet verdiğimiz bölgelerde Yetkilendirilmiş Gümrük Müşavirliği hizmetlerini etkin ve koordineli bir organizasyon yapısıyla sunuyoruz.",
+        "Gelişmiş teknolojik altyapımız ve entegre bilgi sistemlerimiz sayesinde merkez, şube ve ofislerimiz arasında kesintisiz bilgi akışı sağlıyor; denetim, tespit ve raporlama faaliyetlerini mevzuata uygun, güvenilir ve etkin bir anlayışla yürütüyoruz.",
+      ],
+    },
+    {
+      title: "Uzman ve Deneyimli Kadro",
+      paragraphs: [
+        "Kadromuz; Yetkilendirilmiş Gümrük Müşavirleri, gümrük idaresinde görev yapmış deneyimli yöneticiler, dış ticaret ve gümrük uygulamalarında uzun yıllar görev almış gümrük müşavirleri ile alanında uzman teknik personelden oluşmaktadır.",
+        "Operasyon ekibimiz ise üniversite mezunu, Ticaret Bakanlığı tarafından düzenlenen sınavlarda başarılı olarak Gümrük Müşavir Yardımcısı belgesi almaya hak kazanmış uzman personelden oluşmaktadır. Mesleki gelişimi esas alan anlayışımız doğrultusunda ekibimizin bilgi ve yetkinliğini sürekli geliştirmeye önem veriyoruz.",
+      ],
+    },
+    {
+      title: "Kurumsal Yaklaşımımız",
+      paragraphs: [
+        "Yetkilendirilmiş Gümrük Müşavirliği, kamu adına yürütülen önemli bir denetim ve tespit faaliyetidir. Bu sorumluluğun bilinciyle tüm hizmetlerimizi; bağımsızlık, tarafsızlık, şeffaflık, güvenilirlik ve mevzuata tam uyum ilkeleri doğrultusunda yürütüyoruz.",
+        "Amacımız yalnızca yasal yükümlülüklerin yerine getirilmesini sağlamak değil; dış ticaret süreçlerinde doğruluk, sürdürülebilirlik ve güven esasına dayalı bir hizmet anlayışıyla kamu otoritesi ile yükümlüler arasındaki denetim ve raporlama süreçlerine değer katmaktır.",
+        "Kurumsal yapımız, uzman insan kaynağımız ve güçlü teknolojik altyapımızla; güvenilir, şeffaf ve sürdürülebilir Yetkilendirilmiş Gümrük Müşavirliği hizmeti sunmaya devam ediyoruz.",
+      ],
+    },
+  ] satisfies AboutSubsection[],
+  mission: {
+    title: "Misyonumuz",
+    text: "Ticaret Bakanlığı tarafından verilen görev ve yetkiler kapsamında, gümrük mevzuatına tam uyum esasına bağlı kalarak bağımsız, tarafsız ve güvenilir denetim, tespit ve raporlama hizmetleri sunmak; uzman kadromuz ve güçlü teknolojik altyapımızla dış ticaret süreçlerinin güvenli, şeffaf ve sürdürülebilir şekilde yürütülmesine katkı sağlamaktır.",
+  },
+  vision: {
+    title: "Vizyonumuz",
+    text: "Yetkilendirilmiş Gümrük Müşavirliği alanında; etik değerlere bağlılığı, uzman insan kaynağı, güçlü kurumsal yapısı ve teknolojik altyapısıyla güven duyulan, tercih edilen ve örnek gösterilen kuruluşlar arasında yer almaktır.",
+  },
+  values: {
+    title: "Temel Değerlerimiz",
+    items: [
+      {
+        title: "Bağımsızlık",
+        description:
+          "Denetim ve tespit faaliyetlerini objektif, tarafsız ve mesleki etik kurallara bağlı şekilde yürütürüz.",
+      },
+      {
+        title: "Tarafsızlık",
+        description: "Tüm süreçlerde mevzuata, etik değerlere ve kamu yararına uygun hareket ederiz.",
+      },
+      {
+        title: "Güvenilirlik",
+        description: "Doğru, eksiksiz ve zamanında raporlama anlayışıyla hizmet sunarız.",
+      },
+      {
+        title: "Mevzuata Uyum",
+        description:
+          "Faaliyetlerimizi 4458 sayılı Gümrük Kanunu ve ilgili tüm yasal düzenlemeler doğrultusunda gerçekleştiririz.",
+      },
+      {
+        title: "Uzmanlık",
+        description:
+          "Alanında deneyimli, sürekli gelişimi benimseyen uzman kadromuzla yüksek standartlarda hizmet sunarız.",
+      },
+      {
+        title: "Teknolojik Yetkinlik",
+        description:
+          "Çağdaş bilgi teknolojileri ve dijital altyapımızla süreçlerimizi güvenli, verimli ve etkin şekilde yönetiriz.",
+      },
+      {
+        title: "Şeffaflık",
+        description:
+          "Tüm denetim ve raporlama faaliyetlerimizi açık, izlenebilir ve hesap verebilir bir anlayışla yürütürüz.",
+      },
+      {
+        title: "Sürekli Gelişim",
+        description:
+          "Değişen mevzuatı, teknolojiyi ve sektörel gelişmeleri yakından takip ederek hizmet kalitemizi sürekli geliştiririz.",
+      },
+    ] satisfies AboutValue[],
+  },
+};
 
 export const aboutHomeSummary =
   "2008 yılından bu yana Anonim Şirket statüsünde faaliyet gösteren ORTUNÇ YGM; tam donanımlı teknolojik altyapısı, gümrük teşkilatı ve kurumsal firmalarda deneyim kazanmış uzman kadrosuyla İstanbul, Kocaeli, Bursa, Balıkesir, Manisa ve İzmir bölgelerinde hizmet vermektedir. Merkezimiz İstanbul’da, Bursa’da şubemiz ve İzmir’de ofisimiz bulunmaktadır. Kamu adına yürüttüğümüz tespit işlemlerinde mevzuata uygunluk ile müşteri menfaatini birlikte gözeten çözüm odaklı yaklaşım temel felsefemizdir.";

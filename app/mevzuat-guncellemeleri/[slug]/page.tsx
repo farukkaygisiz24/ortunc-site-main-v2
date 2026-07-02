@@ -9,6 +9,7 @@ import {
   mevzuatGuncellemeUrlSlug,
   resolveMevzuatGuncellemeDataSlug,
 } from "@/lib/mevzuatGuncellemeleri";
+import { isMevzuatGuncellemeleriEnabled } from "@/lib/featureFlags";
 import mevzuatIndex from "@/public/data/mevzuat-guncellemeleri/index.json";
 
 type PageProps = {
@@ -20,6 +21,10 @@ function isValidUrlSlug(slug: string): boolean {
 }
 
 export function generateStaticParams() {
+  if (!isMevzuatGuncellemeleriEnabled()) {
+    return [{ slug: "__disabled__" }];
+  }
+
   if (process.env.VERCEL_DEPLOY === "1") {
     return [];
   }
@@ -45,6 +50,10 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 }
 
 export default async function MevzuatGuncellemeDetayPage({ params }: PageProps) {
+  if (!isMevzuatGuncellemeleriEnabled()) {
+    notFound();
+  }
+
   const { slug: urlSlug } = await params;
   if (!isValidUrlSlug(urlSlug)) notFound();
 
@@ -58,7 +67,6 @@ export default async function MevzuatGuncellemeDetayPage({ params }: PageProps) 
   return (
     <>
       <PageHeader
-        breadcrumb="Mevzuat Güncellemeleri"
         title="Güncelleme Detayı"
         subtitle={
           <Link href={MEVZUAT_GUNCELLEMELERI_LIST_PATH} className="text-brand-blue hover:underline">

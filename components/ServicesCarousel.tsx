@@ -6,13 +6,16 @@ import { useRouter } from "next/navigation";
 import { useEffect, useMemo, useRef, useState, type CSSProperties } from "react";
 import CardSwap, { Card } from "@/components/CardSwap";
 import type { ServiceItem } from "@/content/services";
-import { servicesSlogan, type ServiceCategoryKey } from "@/content/site-content";
+import { getYgmFeaturedHref } from "@/content/services";
+import { servicesSlogan } from "@/content/site-content";
 
-const CATEGORY_HREFS: Record<ServiceCategoryKey, string> = {
-  gumruk: "/hizmetler/gumruk-hizmetleri",
-  lojistik: "/hizmetler/lojistik-hizmetleri",
-  danismanlik: "/hizmetler/danismanlik-hizmetleri",
-};
+function serviceCarouselTitle(service: ServiceItem) {
+  return service.carouselTitle ?? service.title;
+}
+
+function serviceHref(service: ServiceItem) {
+  return getYgmFeaturedHref(service);
+}
 
 /** 16:9 yatay kart — varsayılan; alan ölçümüyle büyütülür */
 const CARD_WIDTH = 440;
@@ -118,7 +121,7 @@ export default function ServicesCarousel({ items }: { items: readonly ServiceIte
           <div className="services-carousel__content flex flex-col justify-center bg-white lg:max-w-[32rem] lg:pr-4">
             <p className="text-[13px] font-bold uppercase tracking-[.14em] text-brand-blue">Hizmetlerimiz</p>
             <h2 className="mt-3 text-[26px] font-extrabold leading-tight text-brand-ink sm:text-[32px]">
-              Dış ticaretiniz için uçtan uca çözüm
+              Yasal Süreçlerinizde Mevzuat Güvencesi
             </h2>
             <p className="mt-4 text-[15px] leading-relaxed text-brand-muted sm:text-[16px] sm:leading-loose">
               {servicesSlogan}
@@ -145,16 +148,16 @@ export default function ServicesCarousel({ items }: { items: readonly ServiceIte
               {swapItems.map((service) => (
                 <Link
                   key={service.title}
-                  href={CATEGORY_HREFS[service.category]}
+                  href={serviceHref(service)}
                   className="services-card-swap__card services-carousel__static-card group"
                 >
                   <div className="services-card-swap__header">
-                    <span className="services-card-swap__header-text">{service.title}</span>
+                    <span className="services-card-swap__header-text">{serviceCarouselTitle(service)}</span>
                   </div>
                   <div className="services-card-swap__body">
                     <Image
                       src={service.image}
-                      alt={service.title}
+                      alt={serviceCarouselTitle(service)}
                       fill
                       className="services-card-swap__image object-cover"
                       sizes="200px"
@@ -177,18 +180,18 @@ export default function ServicesCarousel({ items }: { items: readonly ServiceIte
               easing="linear"
               onCardClick={(idx) => {
                 const service = swapItems[idx];
-                if (service) router.push(CATEGORY_HREFS[service.category]);
+                if (service) router.push(serviceHref(service));
               }}
             >
               {swapItems.map((service) => (
                 <Card key={service.title} customClass="services-card-swap__card">
                   <div className="services-card-swap__header">
-                    <span className="services-card-swap__header-text">{service.title}</span>
+                    <span className="services-card-swap__header-text">{serviceCarouselTitle(service)}</span>
                   </div>
                   <div className="services-card-swap__body">
                     <Image
                       src={service.image}
-                      alt={service.title}
+                      alt={serviceCarouselTitle(service)}
                       fill
                       className="services-card-swap__image object-cover"
                       sizes={`${cardSize.width}px`}
