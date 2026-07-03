@@ -77,12 +77,9 @@ export default function HakkimizdaPage() {
 
           <div className="mt-[84px]">
             <ViewUp className="mb-10 text-center" range="entry 0% cover 30%">
-              <div className="mb-3 flex items-center justify-center gap-[9px]">
-                <TriangleIcon />
-                <span className="text-[13px] font-extrabold tracking-[.16em] text-brand-blue uppercase">
-                  {aboutPage.values.title}
-                </span>
-              </div>
+              <p className="mb-3 text-[13px] font-extrabold tracking-[.16em] text-brand-blue uppercase">
+                {aboutPage.values.title}
+              </p>
               <h2 className="m-0 text-[32px] font-extrabold tracking-[-.01em] text-brand-ink max-[900px]:text-[25px]">
                 Hizmet anlayışımızı belirleyen ilkeler
               </h2>
