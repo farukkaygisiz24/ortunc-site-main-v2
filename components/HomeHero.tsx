@@ -81,7 +81,7 @@ export default function HomeHero() {
 
   return (
     <section
-      className="relative flex min-h-[88vh] items-center overflow-hidden bg-[#141418] max-[900px]:min-h-0"
+      className="relative -mt-[var(--header-height)] overflow-hidden bg-[#141418]"
       onMouseMove={onHeroMove}
       style={
         {
@@ -105,13 +105,23 @@ export default function HomeHero() {
         aria-hidden
       />
 
-      <div className="pointer-events-none absolute inset-0 max-[900px]:opacity-70 max-[900px]:[--hx:0] max-[900px]:[--hy:0]" aria-hidden>
-        {FLOATING_LOGOS.map((logo, i) => (
-          <FloatingLogoMark key={i} logo={logo} />
-        ))}
-      </div>
+      <div className="relative z-[2] pt-[var(--header-height)]">
+        <div
+          className="relative flex min-h-[88vh] items-center max-[900px]:min-h-0"
+          style={
+            {
+              "--hx": parallax.hx,
+              "--hy": parallax.hy,
+            } as React.CSSProperties
+          }
+        >
+          <div className="pointer-events-none absolute inset-0 max-[900px]:opacity-70 max-[900px]:[--hx:0] max-[900px]:[--hy:0]" aria-hidden>
+            {FLOATING_LOGOS.map((logo, i) => (
+              <FloatingLogoMark key={i} logo={logo} />
+            ))}
+          </div>
 
-      <div className="site-container relative z-[2] grid w-full grid-cols-[1.15fr_.85fr] items-center gap-[72px] py-20 pb-[110px] max-[900px]:grid-cols-1 max-[900px]:gap-0 max-[900px]:py-[52px] max-[900px]:pb-16">
+          <div className="site-container relative z-[2] grid w-full grid-cols-[1.15fr_.85fr] items-center gap-[72px] py-20 pb-[110px] max-[900px]:grid-cols-1 max-[900px]:gap-0 max-[900px]:py-[52px] max-[900px]:pb-16">
         <div>
           <div className="flex items-start gap-2.5 overflow-hidden animate-rise-in" style={{ animationDelay: "0.1s" }}>
             <TriangleIcon fill="#5a5af5" className="mt-1 shrink-0" />
@@ -185,12 +195,14 @@ export default function HomeHero() {
         </div>
       </div>
 
-      <div
-        className="absolute bottom-[26px] left-1/2 z-[3] flex -translate-x-1/2 flex-col items-center gap-2 animate-rise-in max-[900px]:hidden"
-        style={{ animationDelay: "1.2s" }}
-      >
-        <span className="text-[11.5px] font-bold tracking-[.2em] text-white/50 uppercase">Keşfedin</span>
-        <TriangleIcon fill="#8a8dff" className="rotate-180 animate-bounce-down opacity-70" size={13} />
+          <div
+            className="absolute bottom-[26px] left-1/2 z-[3] flex -translate-x-1/2 flex-col items-center gap-2 animate-rise-in max-[900px]:hidden"
+            style={{ animationDelay: "1.2s" }}
+          >
+            <span className="text-[11.5px] font-bold tracking-[.2em] text-white/50 uppercase">Keşfedin</span>
+            <TriangleIcon fill="#8a8dff" className="rotate-180 animate-bounce-down opacity-70" size={13} />
+          </div>
+        </div>
       </div>
     </section>
   );

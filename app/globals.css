@@ -3,8 +3,14 @@
 :root {
   --background: #ffffff;
   --foreground: #1c1c1e;
-  --header-height: 82px;
+  --header-height: 92px;
   --ease-signature: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@media (min-width: 901px) {
+  :root {
+    --header-height: 100px;
+  }
 }
 
 @theme inline {
