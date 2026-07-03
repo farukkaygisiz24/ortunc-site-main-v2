@@ -51,7 +51,7 @@ const U = {
   inspection: "/images/services/inspection.jpg",
 } as const;
 
-/** UGM hizmet yapısına paralel, ORTUNÇ ifadesiyle hazırlanmış hizmet kataloğu. */
+/** ORTUNÇ hizmet kataloğu */
 const serviceCatalog: Omit<ServiceItem, "slug">[] = [
   // —— Gümrük Hizmetleri ——
   {
@@ -204,7 +204,7 @@ const YGM_FEATURED_SLUGS = [
 ] as const;
 
 export function getYgmFeaturedHref(service: ServiceItem): string {
-  return `/hizmetler/gumruk-hizmetleri#${service.slug}`;
+  return `/hizmetler/ygm#${service.slug}`;
 }
 
 export function getYgmFeaturedServices(): ServiceItem[] {

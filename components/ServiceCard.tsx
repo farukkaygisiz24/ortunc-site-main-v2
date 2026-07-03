@@ -1,17 +1,26 @@
-import ServiceIcon, { type IconKey } from "@/components/ServiceIcon";
+import Image from "next/image";
 import type { ServiceItem } from "@/content/services";
 
 export default function ServiceCard({ service, id }: { service: ServiceItem; id?: string }) {
   return (
     <div
       id={id ?? service.slug}
-      className="scroll-mt-28 rounded-2xl border border-brand-line bg-white p-7 transition hover:-translate-y-0.5 hover:shadow-[0_16px_32px_rgba(28,28,30,.09)]"
+      className="group flex scroll-mt-28 flex-col overflow-hidden rounded-[18px] border border-brand-line bg-white transition-[transform,border-color,box-shadow] duration-250 hover:-translate-y-[5px] hover:border-[rgba(38,38,188,.35)] hover:shadow-[0_24px_48px_rgba(28,28,30,.1)]"
+      style={{ transitionTimingFunction: "cubic-bezier(0.22, 1, 0.36, 1)" }}
     >
-      <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-brand-blue-tint text-brand-blue">
-        <ServiceIcon icon={service.icon as IconKey} className="h-6 w-6" />
+      <div className="relative h-[176px] overflow-hidden">
+        <Image
+          src={service.image}
+          alt={service.title}
+          fill
+          className="object-cover transition-transform duration-[600ms] group-hover:scale-[1.07]"
+          sizes="(max-width: 900px) 100vw, 33vw"
+        />
       </div>
-      <h3 className="mt-5 text-[17px] font-bold leading-snug text-brand-ink">{service.title}</h3>
-      <p className="mt-2.5 text-[14.5px] leading-relaxed text-brand-muted">{service.description}</p>
+      <div className="flex flex-1 flex-col p-6">
+        <h3 className="m-0 text-[17px] leading-snug font-extrabold text-brand-ink">{service.title}</h3>
+        <p className="mt-2 text-[13.8px] leading-[1.68] text-brand-muted">{service.description}</p>
+      </div>
     </div>
   );
 }

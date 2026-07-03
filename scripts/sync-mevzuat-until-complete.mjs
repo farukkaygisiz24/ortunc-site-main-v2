@@ -118,7 +118,7 @@ async function main() {
     }
 
     if (downloaded === 0) {
-      log(`İlerleme yok; ${pauseBetweenRoundsMs / 1000}s bekleniyor (UGM rate-limit olabilir)…`);
+      log(`İlerleme yok; ${pauseBetweenRoundsMs / 1000}s bekleniyor (kaynak rate-limit olabilir)…`);
     } else {
       log(`${pauseBetweenRoundsMs / 1000}s mola…`);
     }

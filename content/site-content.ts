@@ -44,8 +44,7 @@ export const hero = {
     "Yetkilendirilmiş Gümrük Müşavirliği hizmetlerimizde; mevzuata uygun, hızlı ve şeffaf denetim anlayışıyla işletmelerinizin dış ticaret süreçlerine değer katıyoruz.",
 };
 
-// Figures pulled directly from the "about" copy below (founding year, service
-// regions, office count) — not invented data.
+// Kurumsal istatistikler — hakkımızda metninden alınmıştır.
 export const stats = [
   { value: "2008", label: "Kuruluş yılı" },
   { value: "Türkiye Geneli", label: "Hizmet ağı" },
@@ -66,17 +65,17 @@ export type ServiceCategory = {
 export const serviceCategories: ServiceCategory[] = [
   {
     key: "gumruk",
-    slug: "gumruk-hizmetleri",
+    slug: "ygm",
     title: "YGM Hizmetleri",
-    href: "/hizmetler/gumruk-hizmetleri",
+    href: "/hizmetler/ygm",
     description:
       "Antrepo, onaylanmış kişi statüsü, dahilde işleme, geçici ithalat ve menşe kontrolü başta olmak üzere YGM kapsamındaki tespit ve raporlama hizmetlerini mevzuata uygun şekilde sunuyoruz.",
   },
   {
     key: "danismanlik",
-    slug: "danismanlik-hizmetleri",
+    slug: "danismanlik",
     title: "Danışmanlık Hizmetleri",
-    href: "/hizmetler/danismanlik-hizmetleri",
+    href: "/hizmetler/danismanlik",
     description:
       "YYS denetim ve raporlama, yetkilendirilmiş yükümlü statüsü danışmanlığı ile sonradan kontrol süreçlerinde uzman destek sunuyoruz.",
   },
@@ -92,11 +91,11 @@ export type { ServiceItem } from "@/content/services";
 import { getServiceHref, getServicesByCategory, getYgmFeaturedServices, getYgmFeaturedHref } from "@/content/services";
 
 const CATEGORY_HREFS = {
-  gumruk: "/hizmetler/gumruk-hizmetleri",
-  danismanlik: "/hizmetler/danismanlik-hizmetleri",
+  gumruk: "/hizmetler/ygm",
+  danismanlik: "/hizmetler/danismanlik",
 } as const;
 
-/** Header mega menü — UGM tarzı gruplu hizmet listesi */
+/** Header mega menü — gruplu hizmet listesi */
 export function buildServicesNavGroups(): NavMegaGroup[] {
   const gumrukHref = CATEGORY_HREFS.gumruk;
   const danismanlikHref = CATEGORY_HREFS.danismanlik;
@@ -152,7 +151,7 @@ export const nav: NavItem[] = [
 export const headerNav = nav.filter((item) => !("href" in item) || item.href !== "/iletisim");
 
 export const servicesSlogan =
-  "2008 yılından bu yana, uzman YGM kadromuzla antrepo, rejim ve statü tespit süreçlerinizi gümrük mevzuatına tam uyumlu, hızlı ve şeffaf bir şekilde yönetiyoruz. Bağımsız denetim yaklaşımımızla, riskleri minimize ederek dış ticaret işlemlerinize kurumsal güvence katıyoruz.";
+  "2008 yılından bu yana, uzman YGM kadromuzla tespit süreçlerinizi mevzuata tam uyumlu, hızlı ve şeffaf bir şekilde yönetiyoruz.";
 
 export const faq = [
   {
@@ -305,7 +304,7 @@ export const legalNotice = [
   "Tüm telif hakkı, tescilli marka ve benzeri diğer ibarelerin korunması",
   "Söz konusu içeriğin açıkça ya da ima yoluyla Ortunç Yetkilendirilmiş Gümrük Müşavirliği tarafından hazırlanan bağlayıcı bir beyanname olarak kullanılmaması veya bir işletme ya da onun ürün ve hizmetleri hakkında onay veya destek verilmesi anlamına gelecek şekilde kullanılmaması",
   "Bu site üzerinde yer alan materyaller, içerik veya materyal sağlayıcının (üçüncü taraf bağlantıları dâhil) gerekli ve açık yazılı izni olmaksızın değiştirilemez, yeniden üretilemez, halka açık biçimde görüntülenemez, dağıtılamaz veya hiçbir kamusal veya ticari amaçla kullanılamaz. Ortunç Yetkilendirilmiş Gümrük Müşavirliği, bir kullanıcının Ortunç Yetkilendirilmiş Gümrük Müşavirliği tarafından tavsiye edilen bu açık yazılı izni almamasından kaynaklanan hiçbir risk, sorumluluk veya yükümlülüğü üstlenmemektedir.",
-  "Ortunç Yetkilendirilmiş Gümrük Müşavirliği A.Ş. adı, logosu tescilli markadır. Bu markanın kullanımı, Ortunç Yetkilendirilmiş Gümrük Müşavirliği firmasının açık iznini ve bir lisans anlaşmasını gerektirir. Ortunç Yetkilendirilmiş Gümrük Müşavirliğinin diğer tüm ticari markalar portföyünün yetkisiz kullanımı, yasaların izin verdiği tüm kapsam dâhilinde dava edilecektir. Bu yazılı onayı talep etmek için, Webmaster ile irtibata geçin veya “Bize Ulaşın” özelliğini kullanın.",
+  "Ortunç Yetkilendirilmiş Gümrük Müşavirliği A.Ş. adı, logosu tescilli markadır. Bu markanın kullanımı, Ortunç Yetkilendirilmiş Gümrük Müşavirliği firmasının açık iznini ve bir lisans anlaşmasını gerektirir. Ortunç Yetkilendirilmiş Gümrük Müşavirliğinin diğer tüm ticari markalar portföyünün yetkisiz kullanımı, yasaların izin verdiği tüm kapsam dâhilinde dava edilecektir. Bu yazılı onayı talep etmek için iletişim sayfamızdan bize ulaşabilirsiniz.",
   "Üçüncü taraf bağlantıları, kullanıcılara kolaylık sağlaması amacıyla sunulmaktadır. Ortunç Yetkilendirilmiş Gümrük Müşavirliği, bu siteleri veya içeriklerini denetlemez ve bunlardan sorumlu değildir. Ortunç Yetkilendirilmiş Gümrük Müşavirliği kendi itibarını ve ticari markasını korumak zorundadır ve Ortunç Yetkilendirilmiş Gümrük Müşavirliği web sitemize yönelik herhangi bir bağlantının kaldırılmasını talep etme hakkını saklı tutar.",
   "Aşağıdaki Web bağlantısı etkinlikleri, Ortunç Yetkilendirilmiş Gümrük Müşavirliği tarafından açıkça yasaklanmış olup, ticari marka ve tescilli marka ihlali sorunları teşkil edebilir:",
   "- Logomuzun yetkisiz kullanımını içeren bağlantılar.",

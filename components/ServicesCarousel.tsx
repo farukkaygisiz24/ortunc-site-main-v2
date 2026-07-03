@@ -22,7 +22,7 @@ const CARD_WIDTH = 440;
 const CARD_HEIGHT = Math.round((CARD_WIDTH * 9) / 16);
 const SWAP_CARD_LIMIT = 6;
 
-/** Sağ-alt köşede ~yarısı görünür (React Bits peek) */
+/** Sağ-alt köşede kartın yaklaşık yarısı görünür */
 const CARD_PEEK_RATIO = 0.52;
 /** Arka kart başlıklarının üst üste okunması için minimum dikey aralık */
 const CARD_HEADER_STACK_GAP = 46;

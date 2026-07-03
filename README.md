@@ -1,49 +1,50 @@
-# Ortunç Gümrük Müşavirliği - Yeni Kurumsal Web Sitesi
+# ORTUNÇ Yetkilendirilmiş Gümrük Müşavirliği A.Ş. — Kurumsal Web Sitesi
 
-## Proje Özeti
-ORTUNÇ Yetkilendirilmiş Gümrük Müşavirliği A.Ş. için mevcut `ortunc.com.tr` sitesinin yerine geçecek, modern, statik ve taşınabilir bir kurumsal web sitesi geliştirme projesi.
+ORTUNÇ YGM için Next.js tabanlı kurumsal web sitesi.
 
-## Amaç
-- Mevcut siteyi teknik ve tasarım olarak yenilemek
-- Tek bir sunucuya (VDS) bağımlı olmayan, taşınabilir bir yapı kurmak
-- Modern, hızlı ve SEO uyumlu bir statik site oluşturmak
+## Teknoloji
 
-## Teknoloji Seçimleri
+- Next.js (App Router)
+- TypeScript
+- Tailwind CSS
+- Statik export (`output: 'export'`) veya standalone sunucu modu
 
-| Katman | Teknoloji |
-|---|---|
-| Framework | Next.js (App Router) |
-| Render Modu | Static Export (`output: 'export'`) |
-| Dil | TypeScript |
-| Stil | Tailwind CSS (önerilir, teyit bekleniyor) |
-| Hosting | Herhangi bir statik hosting / Nginx / Netlify / Cloudflare Pages |
+## Geliştirme
 
-## Neden Static Export?
-- Site içeriği ağırlıklı olarak statik (kurumsal tanıtım, hizmetler, iletişim)
-- Belirli bir sunucuya bağımlı kalınmıyor — `next build` çıktısı (`/out` klasörü) herhangi bir web sunucusuna veya statik hosting servisine taşınabilir
-- Form/dinamik özellik gerekirse üçüncü parti servisler (Formspree, Resend API vb.) ile entegre edilebilir; sunucu tarafı kod gerekmez
-
-## Proje Yapısı (Planlanan)
-```
-ortunc-site-main/
-├── app/
-│   ├── page.tsx              → Anasayfa
-│   ├── hakkimizda/page.tsx   → Hakkımızda
-│   ├── hizmetler/page.tsx    → Hizmetler
-│   └── iletisim/page.tsx     → İletişim
-├── components/
-├── public/
-│   └── images/
-├── next.config.js
-├── AGENDS.md                 → Proje gündemi / yapılacaklar listesi
-└── README.md                 → Bu dosya
+```bash
+npm install
+npm run dev
 ```
 
-## Referans Kaynak
-Mevcut sitenin (`ortunc.com.tr`) sahibi/yetkilisi olan ekip tarafından yürütülen bir yenileme projesidir. Mevcut site içerik ve yapı referansı olarak kullanılacak, ancak tasarım ve kod sıfırdan, modern standartlara uygun şekilde yeniden kurgulanacaktır (birebir kopyalama yapılmayacaktır).
+Tarayıcıda `http://localhost:3000` adresini açın.
 
-## Durum
-🟡 Planlama aşaması — içerik ve tasarım detayları netleştiriliyor.
+## Paylaşım paketi
 
-## Sonraki Adımlar
-Bkz. `AGENDS.md`
+Kişisel / yerel dosyalar hariç zip oluşturmak için:
+
+```bash
+npm run package:share
+```
+
+Üst klasörde `ortunc-site-main-share.zip` oluşur. Zip içinde **yoktur**:
+
+- `.git` (commit geçmişi, yazar bilgileri)
+- `node_modules`, `.next`, `out`, `.cache`
+- `.cursor`, `.claude`, `.vercel`
+
+Alıcı zip'i açıp `npm install && npm run dev` ile çalıştırabilir.
+
+## Derleme
+
+```bash
+npm run build
+```
+
+Statik çıktı `out/` klasöründe oluşur.
+
+## Mevzuat senkronizasyonu
+
+```bash
+npm run sync:mevzuat
+npm run sync:mevzuat:details
+```

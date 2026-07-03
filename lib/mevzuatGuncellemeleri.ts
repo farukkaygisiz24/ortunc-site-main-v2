@@ -41,7 +41,7 @@ export function mevzuatGuncellemeDetayUrl(dataSlug: string): string {
   return `${MEVZUAT_GUNCELLEMELERI_LIST_PATH}/${encodeURIComponent(mevzuatGuncellemeUrlSlug(dataSlug))}`;
 }
 
-/** UGM `Sirkuler_26_0363` veya slug `sirkuler-26-0363` → `2026-0363` sirkü numarası. */
+/** `Sirkuler_26_0363` veya slug `sirkuler-26-0363` → `2026-0363` sirkü numarası. */
 export function formatMevzuatGuncellemeNo(reference: string, slug?: string): string {
   const fromRef = reference.match(/^(?:Sirkuler|Sirküler|MevzuatGuncellemesi?)_(\d{2})_(\d+)$/i);
   if (fromRef) {
@@ -76,7 +76,7 @@ function decodeHtml(text: string): string {
   return decodeHtmlEntities(text);
 }
 
-/** UGM gümrük sirküleri liste sayfası tablosunu parse eder. */
+/** Sirkü listesi tablosunu parse eder. */
 export function parseMevzuatListPage(html: string): MevzuatGuncellemeOzet[] {
   const rowPattern =
     /<tr[^>]*class="tableitem"[^>]*data-href="([^"]+)"[\s\S]*?<th[^>]*class="col1">([\s\S]*?)<\/th>[\s\S]*?<td[^>]*class="col2">([\s\S]*?)<\/td>[\s\S]*?<td[^>]*class="col3">([\s\S]*?)<\/td>[\s\S]*?<td[^>]*class="col4">([\s\S]*?)<\/td>/gi;
@@ -112,7 +112,7 @@ export function parseMevzuatListPageCount(html: string): number {
   return pages.length ? Math.max(...pages) : 1;
 }
 
-/** UGM sirküler detay sayfasındaki gövde HTML'ini parse eder. */
+/** Sirkü detay sayfasındaki gövde HTML'ini parse eder. */
 export function parseMevzuatDetailPage(html: string): { title: string; bodyHtml: string } | null {
   const titleMatch = html.match(/Kısa Konu[\s\S]*?<b[^>]*>([\s\S]*?)<\/b>/i);
   const bodyMatch = html.match(/<div class="p-4" style="min-height: 340px">([\s\S]*?)<\/div>\s*<\/div>\s*<\/div>/i);

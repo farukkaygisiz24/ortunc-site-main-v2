@@ -1,83 +1,130 @@
 "use client";
 
-import NumberFlow from "@number-flow/react";
 import { useEffect, useRef, useState } from "react";
 import { stats } from "@/content/site-content";
 
-function TextStatValue({ value }: { value: string }) {
-  const words = value.trim().split(/\s+/);
+function CountUp({ value, suffix = "" }: { value: number; suffix?: string }) {
+  const [display, setDisplay] = useState(0);
+  const ref = useRef<HTMLSpanElement>(null);
+  const doneRef = useRef(false);
 
+  useEffect(() => {
+    const el = ref.current;
+    if (!el || doneRef.current) return;
+
+    let raf = 0;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting) return;
+        observer.disconnect();
+        const t0 = performance.now();
+        const dur = 1400;
+        const tick = (t: number) => {
+          const p = Math.min(1, (t - t0) / dur);
+          setDisplay(Math.round(value * (1 - Math.pow(1 - p, 3))));
+          if (p < 1) raf = requestAnimationFrame(tick);
+          else doneRef.current = true;
+        };
+        raf = requestAnimationFrame(tick);
+      },
+      { threshold: 0.4 },
+    );
+    observer.observe(el);
+    return () => {
+      observer.disconnect();
+      cancelAnimationFrame(raf);
+    };
+  }, [value]);
+
+  return (
+    <span ref={ref}>
+      {display}
+      {suffix}
+    </span>
+  );
+}
+
+function StatValue({ value }: { value: string }) {
+  const numeric = Number(value);
+  if (!Number.isNaN(numeric) && value.trim() !== "") {
+    return (
+      <div className="text-[44px] leading-[1.1] font-extrabold tracking-[-.02em] text-brand-blue max-[900px]:text-[36px]">
+        <CountUp value={numeric} />
+      </div>
+    );
+  }
+
+  const words = value.trim().split(/\s+/);
   if (words.length >= 2) {
     return (
-      <p className="flex flex-col items-center gap-0.5 font-extrabold leading-none text-brand-blue">
-        <span className="text-[1.65rem] sm:text-[1.875rem]">{words[0]}</span>
-        <span className="text-[1.65rem] sm:text-[1.875rem]">{words.slice(1).join(" ")}</span>
-      </p>
+      <div className="text-[44px] leading-[1.1] font-extrabold tracking-[-.02em] text-brand-blue max-[900px]:text-[36px]">
+        <span className="block">{words[0]}</span>
+        <span className="block">{words.slice(1).join(" ")}</span>
+      </div>
     );
   }
 
   return (
-    <p className="text-3xl font-extrabold leading-none text-brand-blue sm:text-[2rem]">{value}</p>
-  );
-}
-
-function AnimatedStat({ value, label }: { value: string; label: string }) {
-  const numericValue = Number(value);
-  const isNumeric = value.trim() !== "" && !Number.isNaN(numericValue);
-  const [displayValue, setDisplayValue] = useState(0);
-  const ref = useRef<HTMLDivElement>(null);
-  const hasAnimated = useRef(false);
-
-  useEffect(() => {
-    if (!isNumeric) return;
-
-    const el = ref.current;
-    if (!el) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting && !hasAnimated.current) {
-          hasAnimated.current = true;
-          setDisplayValue(numericValue);
-        }
-      },
-      { threshold: 0.3 },
-    );
-
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, [isNumeric, numericValue]);
-
-  return (
-    <div
-      ref={ref}
-      className="flex h-full min-h-[6.5rem] flex-col items-center justify-start px-3 text-center sm:min-h-[7rem] lg:min-h-[7.25rem]"
-    >
-      <div className="flex min-h-12 w-full items-center justify-center sm:min-h-[3.25rem]">
-        {isNumeric ? (
-          <NumberFlow
-            value={displayValue}
-            format={{ useGrouping: false }}
-            className="text-3xl font-extrabold leading-none text-brand-blue sm:text-[2rem]"
-            spinTiming={{ duration: 900, easing: "cubic-bezier(0.34, 1.2, 0.64, 1)" }}
-            transformTiming={{ duration: 600, easing: "cubic-bezier(0.16, 1, 0.3, 1)" }}
-          />
-        ) : (
-          <TextStatValue value={value} />
-        )}
-      </div>
-      <p className="mt-2 flex min-h-[2.5rem] w-full max-w-[12rem] items-start justify-center text-sm font-semibold leading-snug text-brand-muted sm:min-h-[2.75rem] sm:text-[14px] sm:leading-snug lg:max-w-[13rem]">
-        {label}
-      </p>
+    <div className="text-[44px] leading-[1.1] font-extrabold tracking-[-.02em] text-brand-blue max-[900px]:text-[36px]">
+      {value}
     </div>
   );
 }
 
-export default function StatsStrip() {
+function AboutStatValue({ value }: { value: string }) {
+  const numeric = Number(value);
+  if (!Number.isNaN(numeric) && value.trim() !== "") {
+    return (
+      <div className="text-[36px] leading-[1.1] font-extrabold text-brand-blue">
+        <CountUp value={numeric} />
+      </div>
+    );
+  }
+
+  const words = value.trim().split(/\s+/);
+  if (words.length >= 2) {
+    return (
+      <div className="text-[36px] leading-[1.1] font-extrabold text-brand-blue">
+        <span className="block">{words[0]}</span>
+        <span className="block text-[28px]">{words.slice(1).join(" ")}</span>
+      </div>
+    );
+  }
+
+  return <div className="text-[36px] leading-[1.1] font-extrabold text-brand-blue">{value}</div>;
+}
+
+type StatsStripProps = {
+  variant?: "home" | "about";
+};
+
+export default function StatsStrip({ variant = "home" }: StatsStripProps) {
+  if (variant === "about") {
+    return (
+      <div className="mb-[72px] grid grid-cols-4 rounded-[18px] border border-brand-line px-3 py-9 max-[900px]:grid-cols-2 max-[900px]:gap-y-[34px]">
+        {stats.map((stat, i) => (
+          <div
+            key={stat.label}
+            className={`px-5 text-center ${i > 0 ? "border-l border-brand-line max-[900px]:border-l-0" : ""}`}
+          >
+            <AboutStatValue value={stat.value} />
+            <div className="mt-[9px] text-[13.5px] leading-[1.4] font-semibold text-brand-muted">{stat.label}</div>
+          </div>
+        ))}
+      </div>
+    );
+  }
+
   return (
-    <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 sm:gap-4 lg:grid-cols-4 lg:gap-0 lg:divide-x lg:divide-brand-line/80">
-      {stats.map((stat) => (
-        <AnimatedStat key={stat.label} value={stat.value} label={stat.label} />
+    <div className="grid grid-cols-4 max-[900px]:grid-cols-2 max-[900px]:gap-y-[34px]">
+      {stats.map((stat, i) => (
+        <div
+          key={stat.label}
+          className={`px-6 text-center ${i > 0 ? "border-l border-[#e9eaef] max-[900px]:border-l-0" : ""}`}
+        >
+          <StatValue value={stat.value} />
+          <div className="mt-2.5 text-[14px] leading-[1.4] font-semibold text-brand-muted">{stat.label}</div>
+        </div>
       ))}
     </div>
   );

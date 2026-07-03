@@ -1,101 +1,103 @@
 import Image from "next/image";
 import Link from "next/link";
-import { contact, serviceCategories, siteInfo } from "@/content/site-content";
+import { contact, siteInfo } from "@/content/site-content";
+
+const footerLink =
+  "text-[14px] font-medium text-[#c9cad1] no-underline transition-all duration-150 hover:pl-1.5 hover:text-white";
 
 export default function Footer() {
-  return (
-    <footer className="relative mt-auto overflow-hidden bg-brand-ink text-[#c9cad1]">
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-brand-blue/70 to-transparent" aria-hidden="true" />
-      <div
-        className="pointer-events-none absolute -top-32 left-1/2 h-64 w-[min(900px,90%)] -translate-x-1/2 rounded-full bg-brand-blue/25 blur-3xl"
-        aria-hidden="true"
-      />
-      <div
-        className="pointer-events-none absolute -left-24 bottom-0 h-72 w-72 rounded-full bg-brand-blue/20 blur-3xl"
-        aria-hidden="true"
-      />
-      <div
-        className="pointer-events-none absolute -right-16 bottom-8 h-56 w-56 rounded-full bg-brand-blue-dark/25 blur-3xl"
-        aria-hidden="true"
-      />
-      <div
-        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(38,38,188,0.12),transparent_55%)]"
-        aria-hidden="true"
-      />
+  const [merkez, sube] = contact.addresses;
 
-      <div className="relative z-10 mx-auto grid max-w-6xl grid-cols-1 gap-10 px-6 py-16 sm:grid-cols-2 sm:px-10 lg:grid-cols-6">
-        <div>
+  return (
+    <footer className="relative mt-auto overflow-hidden bg-[#141418] text-[#c9cad1]">
+      <div
+        className="pointer-events-none absolute inset-x-0 top-0 h-px bg-[linear-gradient(to_right,transparent,rgba(90,90,245,.85),transparent)]"
+        aria-hidden
+      />
+      <div
+        className="pointer-events-none absolute -top-[140px] left-1/2 h-[280px] w-[820px] -translate-x-1/2 rounded-full bg-[rgba(38,38,188,.24)] blur-[80px]"
+        aria-hidden
+      />
+      <div className="pointer-events-none absolute right-[5%] bottom-[12%]" aria-hidden>
+        <span className="-rotate-[6deg]">
           <Image
-            src="/images/logo.png"
-            alt={siteInfo.name}
-            width={160}
-            height={36}
-            className="h-9 w-auto opacity-95 brightness-0 invert"
+            src="/images/onlylogo-watermark.png"
+            alt=""
+            width={140}
+            height={140}
+            className="h-[140px] w-auto animate-float-y opacity-[.22]"
           />
-          <p className="mt-5 max-w-xs text-sm leading-relaxed text-[#9d9ea8]">{siteInfo.description}</p>
-        </div>
+        </span>
+      </div>
+
+      <div className="site-container relative z-[2] grid grid-cols-[1.3fr_.9fr_.8fr_.9fr_1.6fr] gap-10 py-[72px] pb-14 max-[900px]:grid-cols-2 max-[900px]:gap-9 max-[900px]:py-12 max-[600px]:grid-cols-1">
         <div>
-          <p className="mb-4 text-xs font-bold uppercase tracking-widest text-white">Hızlı Erişim</p>
-          <div className="flex flex-col gap-3 text-[14.5px]">
-            <Link href="/" className="hover:text-white">
-              Ana Sayfa
-            </Link>
-            <Link href="/hizmetler" className="hover:text-white">
-              Hizmetlerimiz
-            </Link>
-            <Link href="/hizmetler/gumruk-hizmetleri" className="hover:text-white">
-              {serviceCategories.find((c) => c.key === "gumruk")!.title}
-            </Link>
-            <Link href="/hizmetler/danismanlik-hizmetleri" className="hover:text-white">
-              Danışmanlık Hizmetleri
-            </Link>
-            <Link href="/iletisim" className="hover:text-white">
-              İletişim
-            </Link>
+          <Link href="/" className="inline-block">
+            <Image
+              src="/images/logo-horizontal.png"
+              alt={siteInfo.shortName}
+              width={280}
+              height={64}
+              className="h-14 w-auto brightness-0 invert drop-shadow-[0_0_24px_rgba(255,255,255,0.18)] min-[901px]:h-16"
+            />
+          </Link>
+          <p className="mt-5 max-w-[260px] text-[13.5px] leading-[1.7] text-[#9d9ea8]">{siteInfo.description}</p>
+        </div>
+
+        <div>
+          <p className="mb-[18px] text-[11.5px] font-extrabold tracking-[.14em] text-white uppercase">Hızlı Erişim</p>
+          <div className="flex flex-col gap-3">
+            <Link href="/" className={footerLink}>Ana Sayfa</Link>
+            <Link href="/hizmetler" className={footerLink}>Hizmetlerimiz</Link>
+            <Link href="/hizmetler/ygm" className={footerLink}>YGM Hizmetleri</Link>
+            <Link href="/hizmetler/danismanlik" className={footerLink}>Danışmanlık Hizmetleri</Link>
+            <Link href="/iletisim" className={footerLink}>İletişim</Link>
           </div>
         </div>
+
         <div>
-          <p className="mb-4 text-xs font-bold uppercase tracking-widest text-white">Kurumsal</p>
-          <div className="flex flex-col gap-3 text-[14.5px]">
-            <Link href="/hakkimizda" className="hover:text-white">
-              Hakkımızda
-            </Link>
-            <Link href="/mevzuat" className="hover:text-white">
-              Mevzuat
-            </Link>
-            <Link href="/yasal-bilgilendirme" className="hover:text-white">
-              Yasal Bilgilendirme
-            </Link>
+          <p className="mb-[18px] text-[11.5px] font-extrabold tracking-[.14em] text-white uppercase">Kurumsal</p>
+          <div className="flex flex-col gap-3">
+            <Link href="/hakkimizda" className={footerLink}>Hakkımızda</Link>
+            <Link href="/mevzuat" className={footerLink}>Mevzuat</Link>
+            <Link href="/yasal-bilgilendirme" className={footerLink}>Yasal Bilgilendirme</Link>
           </div>
         </div>
+
         <div>
-          <p className="mb-4 text-xs font-bold uppercase tracking-widest text-white">İletişim</p>
-          <div className="flex flex-col gap-3 text-[14.5px]">
-            <a href={contact.phoneHref} className="hover:text-white">
+          <p className="mb-[18px] text-[11.5px] font-extrabold tracking-[.14em] text-white uppercase">İletişim</p>
+          <div className="flex flex-col gap-3 text-[14px] font-medium">
+            <a href={contact.phoneHref} className="text-[#c9cad1] no-underline hover:text-white">
               {contact.phone}
             </a>
-            <a href={`mailto:${contact.email}`} className="hover:text-white">
+            <a href={`mailto:${contact.email}`} className="text-[#c9cad1] no-underline hover:text-white">
               {contact.email}
             </a>
           </div>
         </div>
-        <div className="sm:col-span-2 lg:col-span-2">
-          <p className="mb-4 text-xs font-bold uppercase tracking-widest text-white">Adres</p>
-          <div className="grid grid-cols-1 gap-6 text-[14.5px] sm:grid-cols-2 sm:gap-5">
-            {contact.addresses.map((address) => (
-              <div key={address.label} className="leading-relaxed text-[#9d9ea8]">
-                <span className="mb-1 block text-[12px] font-semibold uppercase tracking-wide text-[#b8b9c2]">
-                  {address.label}
-                </span>
-                <span>{address.value}</span>
-              </div>
-            ))}
+
+        <div>
+          <p className="mb-[18px] text-[11.5px] font-extrabold tracking-[.14em] text-white uppercase">Adres</p>
+          <div className="grid grid-cols-2 gap-5 text-[13.5px] leading-[1.65] text-[#9d9ea8] max-[600px]:grid-cols-1">
+            <div>
+              <span className="mb-1.5 block text-[11.5px] font-bold tracking-[.08em] text-[#b8b9c2] uppercase">
+                Merkez
+              </span>
+              {merkez.value}
+            </div>
+            <div>
+              <span className="mb-1.5 block text-[11.5px] font-bold tracking-[.08em] text-[#b8b9c2] uppercase">
+                Şube
+              </span>
+              {sube.value}
+            </div>
           </div>
         </div>
       </div>
-      <div className="relative z-10 border-t border-[#303136]/80">
-        <div className="mx-auto max-w-6xl px-6 py-5 text-[13px] text-[#8a8b95] sm:px-10">
-          Copyright &copy; {new Date().getFullYear()} {siteInfo.name}. Tüm hakları saklıdır.
+
+      <div className="relative z-[2] border-t border-[rgba(48,49,54,.8)]">
+        <div className="site-container py-5 text-[13px] text-[#8a8b95]">
+          Copyright © {new Date().getFullYear()} {siteInfo.name} Tüm hakları saklıdır.
         </div>
       </div>
     </footer>

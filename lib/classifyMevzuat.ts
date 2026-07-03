@@ -1,6 +1,4 @@
-// Classifies the flat Tebliğ paragraph list into typed items so the page can
-// give it real visual hierarchy (chapter / article / body) without touching
-// a single word of the legal text itself.
+// Tebliğ metnini bölüm, madde ve paragraf olarak sınıflandırır.
 
 export type MevzuatItem = {
   text: string;

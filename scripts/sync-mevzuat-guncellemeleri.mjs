@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * UGM gümrük sirkülerlerini ORTUNÇ sitesine senkronize eder.
+ * Gümrük sirkülerini site verisine senkronize eder.
  *
  * Kullanım:
  *   node scripts/sync-mevzuat-guncellemeleri.mjs           # liste + eksik detaylar
@@ -15,6 +15,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { sanitizeMevzuatBodyHtml } from "./lib/sanitize-mevzuat-html.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.join(__dirname, "..");
@@ -117,7 +118,7 @@ function parseDetailPage(html) {
   if (!bodyMatch) return null;
   return {
     title: titleMatch ? decodeHtml(titleMatch[1].replace(/<[^>]+>/g, "")) : "",
-    bodyHtml: bodyMatch[1].trim(),
+    bodyHtml: sanitizeMevzuatBodyHtml(bodyMatch[1].trim()),
   };
 }
 

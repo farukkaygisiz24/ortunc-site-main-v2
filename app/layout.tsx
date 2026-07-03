@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import { Manrope } from "next/font/google";
 import "./globals.css";
-import BackgroundWatermark from "@/components/BackgroundWatermark";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import PageTransition from "@/components/PageTransition";
+import ViewportZoom from "@/components/ViewportZoom";
 
 const manrope = Manrope({
   variable: "--font-manrope",
@@ -26,7 +26,7 @@ export default function RootLayout({
   return (
     <html lang="tr" className={`${manrope.variable} h-full antialiased`}>
       <body className="flex min-h-full flex-col overflow-x-clip font-sans">
-        <BackgroundWatermark />
+        <ViewportZoom />
         <Header />
         <main className="flex-1 overflow-x-clip">
           <PageTransition>{children}</PageTransition>

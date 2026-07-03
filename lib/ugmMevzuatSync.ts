@@ -43,7 +43,7 @@ export async function fetchUgmDetailHtml(slug: string): Promise<string> {
   });
 
   if (!response.ok) {
-    throw new Error(`UGM ${response.status}: ${slug}`);
+    throw new Error(`Kaynak ${response.status}: ${slug}`);
   }
 
   return response.text();
