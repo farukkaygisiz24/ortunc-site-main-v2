@@ -18,14 +18,14 @@ export default function Footer() {
         className="pointer-events-none absolute -top-[140px] left-1/2 h-[280px] w-[820px] -translate-x-1/2 rounded-full bg-[rgba(38,38,188,.24)] blur-[80px]"
         aria-hidden
       />
-      <div className="pointer-events-none absolute right-[5%] bottom-[12%]" aria-hidden>
+      <div className="pointer-events-none absolute right-[3%] bottom-[8%] max-[600px]:right-[-8%] max-[600px]:bottom-[4%]" aria-hidden>
         <span className="-rotate-[6deg]">
           <Image
             src="/images/onlylogo-watermark.png"
             alt=""
-            width={140}
-            height={140}
-            className="h-[140px] w-auto animate-float-y opacity-[.22]"
+            width={200}
+            height={200}
+            className="h-[200px] w-auto min-[901px]:h-[220px] min-[901px]:opacity-[.42] opacity-[.38]"
           />
         </span>
       </div>

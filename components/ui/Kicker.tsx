@@ -1,4 +1,4 @@
-import TriangleIcon from "@/components/ui/TriangleIcon";
+import LogoMark from "@/components/ui/LogoMark";
 
 type KickerProps = {
   children: React.ReactNode;
@@ -9,7 +9,7 @@ type KickerProps = {
 export default function Kicker({ children, dark = false, className = "" }: KickerProps) {
   return (
     <div className={`flex items-center gap-[9px] ${className}`}>
-      <TriangleIcon fill={dark ? "#5a5af5" : "#2626bc"} className="mt-0.5 shrink-0" />
+      <LogoMark size={16} className="mt-0.5" />
       <span
         className={`text-[13px] font-extrabold uppercase tracking-[.16em] ${dark ? "text-[#a9aefc]" : "text-brand-blue"}`}
       >
