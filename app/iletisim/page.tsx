@@ -141,7 +141,7 @@ function OfficeBox({
 }) {
   return (
     <div className={`rounded-[18px] border border-brand-line bg-[#fafbfc] p-[26px] ${className}`}>
-      <p className="m-0 border-b border-brand-line pb-5 text-center text-[13px] font-extrabold text-brand-ink">
+      <p className="m-0 border-b border-brand-line pb-5 text-center text-[16px] font-extrabold tracking-[-.01em] text-brand-ink">
         {title}
       </p>
       <div className="grid grid-cols-2 items-center gap-[22px] pt-[22px] max-[900px]:grid-cols-1 max-[900px]:items-start">
