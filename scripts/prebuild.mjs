@@ -15,6 +15,13 @@ const ROOT = path.join(__dirname, "..");
 const serverDeploy =
   process.env.SERVER_DEPLOY === "1" || process.env.VERCEL_DEPLOY === "1";
 
+function isMevzuatGuncellemeleriEnabled() {
+  const flagPath = path.join(ROOT, "lib/featureFlags.ts");
+  const src = fs.readFileSync(flagPath, "utf8");
+  const match = src.match(/export const MEVZUAT_GUNCELLEMELERI_ENABLED\s*=\s*(true|false)/);
+  return match?.[1] === "true";
+}
+
 const API_SRC = path.join(ROOT, "server-routes/api");
 const API_DEST = path.join(ROOT, "app/api");
 
@@ -29,7 +36,8 @@ function prepareApiRoutes() {
 
 prepareApiRoutes();
 
-if (process.env.SKIP_MEVZUAT_SYNC === "1") {
+if (process.env.SKIP_MEVZUAT_SYNC === "1" || !isMevzuatGuncellemeleriEnabled()) {
+  console.log("Mevzuat senkronu atlandı (modül kapalı veya SKIP_MEVZUAT_SYNC=1).");
   process.exit(0);
 }
 
