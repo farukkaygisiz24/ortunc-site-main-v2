@@ -1,6 +1,17 @@
-# ORTUNÇ Yetkilendirilmiş Gümrük Müşavirliği A.Ş. — Kurumsal Web Sitesi
+# ORTUNÇ YGM — Kurumsal Web Sitesi (v2)
 
-ORTUNÇ YGM için Next.js tabanlı kurumsal web sitesi.
+ORTUNÇ YGM için Next.js tabanlı kurumsal web sitesi — **v2 redesign**.
+
+**Repo:** https://github.com/farukkaygisiz24/ortunc-site-main-v2
+
+Önceki sürüm (v1): https://github.com/farukkaygisiz24/ortuncygm-site (`origin-v1` remote)
+
+## Git
+
+```bash
+git push          # v2 → origin (ortunc-site-main-v2)
+git push origin-v1 main   # yalnızca v1'e göndermek isterseniz
+```
 
 ## Teknoloji
 
@@ -26,7 +37,7 @@ Kişisel / yerel dosyalar hariç zip oluşturmak için:
 npm run package:share
 ```
 
-Üst klasörde `ortunc-site-main-share.zip` oluşur. Zip içinde **yoktur**:
+Üst klasörde `ortunc-site-main-v2-share.zip` oluşur (klasör adına göre). Zip içinde **yoktur**:
 
 - `.git` (commit geçmişi, yazar bilgileri)
 - `node_modules`, `.next`, `out`, `.cache`
