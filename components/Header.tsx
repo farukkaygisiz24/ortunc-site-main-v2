@@ -55,7 +55,7 @@ function NavPill({
   return (
     <Link
       href={href}
-      className={`rounded-[10px] px-[15px] py-[9px] text-[14px] font-bold transition-colors duration-150 ${
+      className={`rounded-[10px] px-4 py-2.5 text-[15px] font-bold transition-colors duration-150 ${
         active
           ? "bg-brand-blue text-white"
           : "text-brand-ink hover:text-brand-blue"
@@ -84,7 +84,7 @@ function MegaMenu({ pathname }: { pathname: string }) {
     >
       <Link
         href="/hizmetler"
-        className={`inline-flex items-center gap-1.5 rounded-[10px] px-[15px] py-[9px] text-[14px] font-bold transition-colors duration-150 ${
+        className={`inline-flex items-center gap-1.5 rounded-[10px] px-4 py-2.5 text-[15px] font-bold transition-colors duration-150 ${
           active ? "bg-brand-blue text-white" : "text-brand-ink hover:text-brand-blue"
         }`}
       >
@@ -179,14 +179,14 @@ export default function Header() {
         className="absolute top-0 left-0 z-[5] h-[3px] w-0 bg-[linear-gradient(to_right,#2626bc,#5a5af5)]"
         aria-hidden
       />
-      <div className="site-container flex h-[82px] items-center justify-between gap-8">
+      <div className="site-container flex h-[100px] items-center justify-between gap-8 max-[900px]:h-[92px]">
         <Link href="/" className="shrink-0">
           <Image
             src="/images/logo-horizontal.png"
             alt={siteInfo.name}
-            width={200}
-            height={44}
-            className="h-11 w-auto"
+            width={260}
+            height={56}
+            className="h-12 w-auto min-[901px]:h-[58px]"
             priority
           />
         </Link>
@@ -218,14 +218,14 @@ export default function Header() {
 
           <MagneticLink
             href="/iletisim"
-            className="rounded-[10px] bg-brand-blue px-6 py-[11px] text-[14px] font-extrabold whitespace-nowrap text-white hover:bg-brand-blue-dark max-[900px]:px-4 max-[900px]:py-2.5 max-[900px]:text-[13px]"
+            className="rounded-[10px] bg-brand-blue px-7 py-3 text-[15px] font-extrabold whitespace-nowrap text-white hover:bg-brand-blue-dark max-[900px]:px-4 max-[900px]:py-2.5 max-[900px]:text-[13px]"
           >
             İletişim
           </MagneticLink>
 
           <button
             type="button"
-            className="hidden h-11 w-11 shrink-0 cursor-pointer items-center justify-center border-none bg-transparent p-0 text-brand-ink max-[900px]:flex"
+            className="hidden h-12 w-12 shrink-0 cursor-pointer items-center justify-center border-none bg-transparent p-0 text-brand-ink max-[900px]:flex"
             aria-label={mobileOpen ? "Menüyü kapat" : "Menüyü aç"}
             aria-expanded={mobileOpen}
             onClick={() => setMobileOpen((v) => !v)}
