@@ -67,9 +67,28 @@ export default function Footer() {
         <div>
           <p className="mb-[18px] text-[11.5px] font-extrabold tracking-[.14em] text-white uppercase">İletişim</p>
           <div className="flex flex-col gap-3 text-[14px] font-medium">
-            <a href={contact.phoneHref} className="text-[#c9cad1] no-underline hover:text-white">
-              {contact.phone}
-            </a>
+            <div>
+              <span className="mb-1 block text-[11.5px] font-bold tracking-[.08em] text-[#b8b9c2] uppercase">
+                İstanbul Merkez
+              </span>
+              <a
+                href={merkez.phoneHref ?? contact.phoneHref}
+                className="text-[#c9cad1] no-underline hover:text-white"
+              >
+                {merkez.phone ?? contact.phone}
+              </a>
+            </div>
+            <div>
+              <span className="mb-1 block text-[11.5px] font-bold tracking-[.08em] text-[#b8b9c2] uppercase">
+                Bursa Şube
+              </span>
+              <a
+                href={sube.phoneHref ?? contact.phoneHref}
+                className="text-[#c9cad1] no-underline hover:text-white"
+              >
+                {sube.phone ?? contact.phone}
+              </a>
+            </div>
             <a href={`mailto:${contact.email}`} className="text-[#c9cad1] no-underline hover:text-white">
               {contact.email}
             </a>

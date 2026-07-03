@@ -281,6 +281,8 @@ export const contact = {
   addresses: [
     {
       label: "Merkez",
+      phone: "+90 216 317 60 20",
+      phoneHref: "tel:02163176020",
       value:
         "Fetih Mah. Tahralı Sk. Kavakyeli İş Merkezi A Blok No:7 / 14 Ataşehir / İSTANBUL",
       mapEmbedUrl:
@@ -288,6 +290,10 @@ export const contact = {
     },
     {
       label: "Şube",
+      phone: "+90 224 211 38 65",
+      phoneHref: "tel:02242113865",
+      fax: "+90 224 211 38 66",
+      faxHref: "tel:02242113866",
       value:
         "Bağlarbaşı Mh. 1. Eda Sk. Fevzi Bey İş Merkezi No: 4 / 1 Osmangazi / BURSA",
       mapEmbedUrl:
