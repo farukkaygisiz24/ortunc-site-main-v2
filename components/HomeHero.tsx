@@ -1,11 +1,11 @@
 "use client";
 
-import Image from "next/image";
 import { useEffect, useState } from "react";
+import HeroFadeSlider, { HERO_CARD_SLIDE_INTERVAL_MS } from "@/components/HeroFadeSlider";
 import MagneticLink from "@/components/ui/MagneticLink";
 import TriangleIcon from "@/components/ui/TriangleIcon";
 import { useTilt } from "@/lib/hooks/useTilt";
-import { hero } from "@/content/site-content";
+import { hero, heroCardSlides, heroSlides } from "@/content/site-content";
 
 const HERO_WORDS = ["mevzuata uygun", "hızlı ve güvenilir", "şeffaf"];
 
@@ -90,18 +90,9 @@ export default function HomeHero() {
         } as React.CSSProperties
       }
     >
-      <div className="absolute inset-0 overflow-hidden">
-        <Image
-          src="/images/hero-text-bg.png"
-          alt=""
-          fill
-          priority
-          className="animate-kenburns object-cover object-center max-[900px]:animate-none max-[900px]:scale-100"
-          sizes="100vw"
-        />
-      </div>
+      <HeroFadeSlider slides={heroSlides} variant="background" />
       <div
-        className="absolute inset-0 bg-[linear-gradient(to_right,rgba(16,16,20,.97)_0%,rgba(16,16,20,.86)_45%,rgba(16,16,20,.55)_100%)]"
+        className="pointer-events-none absolute inset-0 z-[1] bg-[linear-gradient(to_right,rgba(16,16,20,.97)_0%,rgba(16,16,20,.86)_45%,rgba(16,16,20,.55)_100%)]"
         aria-hidden
       />
 
@@ -181,15 +172,15 @@ export default function HomeHero() {
           >
             <div className="absolute top-[22px] right-[-22px] bottom-[-22px] left-[22px] rounded-[20px] border-2 border-brand-blue" aria-hidden />
             <div className="relative aspect-[4/5] overflow-hidden rounded-[20px] shadow-[0_40px_80px_rgba(0,0,0,.5)]">
-              <Image
-                src="/images/hero-corporate.png"
-                alt="Modern lojistik merkezi ve antrepo tesisi"
-                fill
-                className="object-cover"
+              <HeroFadeSlider
+                slides={heroCardSlides}
+                variant="card"
+                intervalMs={HERO_CARD_SLIDE_INTERVAL_MS}
+                startDelayMs={2800}
                 sizes="(max-width: 900px) 100vw, 360px"
-                priority
+                alt="ORTUNÇ YGM saha denetim ve lojistik operasyonları"
               />
-              <div className="absolute inset-0 bg-[linear-gradient(to_top,rgba(16,16,20,.35),transparent_45%)]" aria-hidden />
+              <div className="pointer-events-none absolute inset-0 z-[2] bg-[linear-gradient(to_top,rgba(16,16,20,.35),transparent_45%)]" aria-hidden />
             </div>
           </div>
         </div>

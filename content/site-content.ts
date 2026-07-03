@@ -44,6 +44,21 @@ export const hero = {
     "Yetkilendirilmiş Gümrük Müşavirliği hizmetlerimizde; mevzuata uygun, hızlı ve şeffaf denetim anlayışıyla işletmelerinizin dış ticaret süreçlerine değer katıyoruz.",
 };
 
+/** Ana sayfa hero arka plan slaytları */
+export const heroSlides = [
+  "/images/hero/01-antrepo.jpg",
+  "/images/hero/02-konteyner-denetim.jpg",
+  "/images/hero/03-konteyner-muayene.jpg",
+  "/images/hero/04-antrepo-genel.jpg",
+] as const;
+
+/** Ana sayfa hero sağ kart slaytları — arka plandan bağımsız döner */
+export const heroCardSlides = [
+  "/images/hero/card-01-koridor.jpg",
+  "/images/hero/card-02-depo-palet.jpg",
+  "/images/hero/card-03-liman.jpg",
+] as const;
+
 // Kurumsal istatistikler — hakkımızda metninden alınmıştır.
 export const stats = [
   { value: "2008", label: "Kuruluş yılı" },
