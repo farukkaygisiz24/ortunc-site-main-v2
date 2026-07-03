@@ -170,7 +170,7 @@ export default function Header() {
 
   return (
     <header
-      className={`sticky top-0 z-[100] border-b border-[rgba(28,28,30,.08)] bg-[rgba(255,255,255,.86)] backdrop-blur-[24px] backdrop-saturate-[180%] transition-shadow duration-300 ${
+      className={`sticky top-0 z-[100] border-b border-[rgba(28,28,30,.06)] bg-[rgba(255,255,255,.72)] backdrop-blur-[24px] backdrop-saturate-[180%] transition-shadow duration-300 ${
         scrolled ? "shadow-[0_10px_32px_rgba(28,28,30,.08)]" : ""
       }`}
     >
