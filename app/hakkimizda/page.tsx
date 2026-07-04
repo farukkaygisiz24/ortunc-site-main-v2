@@ -20,7 +20,7 @@ export default function HakkimizdaPage() {
           { label: "Hakkımızda" },
         ]}
         title="Hakkımızda"
-        subtitle="Bağımsızlık, tarafsızlık ve güvenilirlik ilkeleri çerçevesinde, 2008'den bu yana."
+        subtitle="2008'den bu yana bağımsızlık, tarafsızlık ve güvenilirlik ilkeleriyle hizmet veriyoruz."
       />
       <section className="bg-white py-[72px] pb-[104px]">
         <div className="site-container">

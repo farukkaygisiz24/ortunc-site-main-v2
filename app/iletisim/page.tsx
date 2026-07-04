@@ -167,7 +167,7 @@ export default function IletisimPage() {
           { label: "İletişim" },
         ]}
         title="İletişim"
-        subtitle="Merkez ofisimiz İstanbul'da, Bursa Şube Müdürlüğümüz ile hizmetinizdeyiz."
+        subtitle="İstanbul merkez ofisimiz ve Bursa şube müdürlüğümüz ile hizmetinizdeyiz."
       />
       <section className="bg-white py-16 pb-24">
         <div className="site-container">

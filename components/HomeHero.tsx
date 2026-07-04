@@ -118,7 +118,7 @@ export default function HomeHero() {
             <TriangleIcon fill="#5a5af5" className="mt-1 shrink-0" />
             <span className="text-[12.5px] font-extrabold tracking-[.18em] text-[#a9aefc] uppercase">
               ORTUNÇ Yetkilendirilmiş Gümrük Müşavirliği A.Ş.
-              <span className="mt-[7px] block text-[#7c80d8]">2008&apos;den bu yana</span>
+              <span className="mt-[7px] block text-[#7c80d8]">2008&apos;den bu yana güven ve uzmanlıkla</span>
             </span>
           </div>
 

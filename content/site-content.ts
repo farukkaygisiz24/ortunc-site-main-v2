@@ -46,17 +46,16 @@ export const hero = {
 
 /** Ana sayfa hero arka plan slaytları */
 export const heroSlides = [
-  "/images/hero/01-antrepo.jpg",
-  "/images/hero/02-konteyner-denetim.jpg",
-  "/images/hero/03-konteyner-muayene.jpg",
-  "/images/hero/04-antrepo-genel.jpg",
+  "/images/hero/bg-01-antrepo.jpg",
+  "/images/hero/bg-02-lojistik-merkezi.jpg",
+  "/images/hero/bg-03-antrepo-genel.jpg",
 ] as const;
 
 /** Ana sayfa hero sağ kart slaytları — arka plandan bağımsız döner */
 export const heroCardSlides = [
-  "/images/hero/card-01-koridor.jpg",
-  "/images/hero/card-02-depo-palet.jpg",
-  "/images/hero/card-03-liman.jpg",
+  "/images/hero/card-01-liman.jpg",
+  "/images/hero/card-02-depo.jpg",
+  "/images/hero/card-03-konteyner.jpg",
 ] as const;
 
 // Kurumsal istatistikler — hakkımızda metninden alınmıştır.
@@ -92,7 +91,7 @@ export const serviceCategories: ServiceCategory[] = [
     title: "Danışmanlık Hizmetleri",
     href: "/hizmetler/danismanlik",
     description:
-      "YYS denetim ve raporlama, yetkilendirilmiş yükümlü statüsü danışmanlığı ile sonradan kontrol süreçlerinde uzman destek sunuyoruz.",
+      "YYS denetim ve raporlama hizmetlerimiz, yetkilendirilmiş yükümlü statüsü danışmanlığımız ve sonradan kontrol süreçlerinizde uzman destek sunuyoruz.",
   },
 ];
 

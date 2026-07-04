@@ -29,7 +29,7 @@ export default function HizmetlerPage() {
           { label: "Hizmetlerimiz" },
         ]}
         title="Hizmetlerimiz"
-        subtitle="YGM kapsamındaki tespit ve raporlama hizmetleri ile dış ticaret süreçlerinize yönelik danışmanlık çözümlerimiz."
+        subtitle="YGM Tespit ve Raporlama Hizmetleri ile Dış Ticaret Danışmanlık Çözümlerimiz."
       />
       <section className="bg-brand-mist py-16 pb-24">
         <div className="site-container">
