@@ -7,9 +7,10 @@ import TriangleIcon from "@/components/ui/TriangleIcon";
 import {
   getServicesByCategory,
   getServiceHref,
+  getTotalListedServicesCount,
   getYgmFeaturedHref,
+  getYgmPageServices,
   serviceCategories,
-  services,
 } from "@/content/site-content";
 
 export const metadata: Metadata = {
@@ -19,11 +20,11 @@ export const metadata: Metadata = {
 };
 
 export default function HizmetlerPage() {
-  const ygmServices = getServicesByCategory("gumruk");
+  const ygmServices = getYgmPageServices();
   const danismanlikServices = getServicesByCategory("danismanlik");
   const ygmCount = ygmServices.length;
   const danismanlikCount = danismanlikServices.length;
-  const totalServices = services.length;
+  const totalServices = getTotalListedServicesCount();
 
   const serviceGroups = [
     {

@@ -242,4 +242,9 @@ export function getYgmPageServices(): ServiceItem[] {
   return YGM_PAGE_SLUGS.map((slug) => services.find((s) => s.slug === slug)!);
 }
 
+/** YGM sayfası + danışmanlık listeleri (YYS her iki listede de yer aldığı için 17). */
+export function getTotalListedServicesCount(): number {
+  return getYgmPageServices().length + getServicesByCategory("danismanlik").length;
+}
+
 export const homepageCarouselServices: ServiceItem[] = getYgmFeaturedServices();

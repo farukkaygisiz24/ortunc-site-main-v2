@@ -97,7 +97,16 @@ export function getServiceCategory(slug: string): ServiceCategory | undefined {
   return serviceCategories.find((category) => category.slug === slug);
 }
 
-export { services, getServicesByCategory, homepageCarouselServices, getServiceHref, getYgmFeaturedServices, getYgmFeaturedHref, getYgmPageServices } from "@/content/services";
+export {
+  services,
+  getServicesByCategory,
+  homepageCarouselServices,
+  getServiceHref,
+  getYgmFeaturedServices,
+  getYgmFeaturedHref,
+  getYgmPageServices,
+  getTotalListedServicesCount,
+} from "@/content/services";
 export type { ServiceItem } from "@/content/services";
 
 import { getServiceHref, getServicesByCategory, getYgmFeaturedServices, getYgmFeaturedHref } from "@/content/services";
