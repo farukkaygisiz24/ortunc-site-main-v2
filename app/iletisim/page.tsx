@@ -42,7 +42,7 @@ function ContactInfoCard({
   );
 }
 
-function AddressBlock({
+function AddressText({
   address,
   hideLabel = false,
 }: {
@@ -50,29 +50,35 @@ function AddressBlock({
   hideLabel?: boolean;
 }) {
   return (
-    <>
-      <div className="flex items-start gap-4">
-        <div className="flex h-[46px] w-[46px] shrink-0 items-center justify-center rounded-xl bg-brand-blue-tint text-brand-blue">
-          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
-            <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
-            <circle cx="12" cy="10" r="3" />
-          </svg>
-        </div>
-        <div>
-          {!hideLabel && (
-            <div className="mb-[5px] text-[13px] font-extrabold text-brand-ink">{address.label}</div>
-          )}
-          <div className="text-[14.5px] leading-[1.65] font-medium text-brand-muted">{address.value}</div>
-        </div>
+    <div className="flex items-start gap-4 py-5 first:pt-0 last:pb-0">
+      <div className="flex h-[46px] w-[46px] shrink-0 items-center justify-center rounded-xl bg-brand-blue-tint text-brand-blue">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+          <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
+          <circle cx="12" cy="10" r="3" />
+        </svg>
       </div>
-      <iframe
-        src={address.mapEmbedUrl}
-        className="h-[280px] w-full rounded-xl border border-brand-line bg-white"
-        style={{ border: 0 }}
-        loading="lazy"
-        title={`${address.label} — ORTUNÇ YGM`}
-      />
-    </>
+      <div>
+        {!hideLabel && (
+          <div className="mb-[5px] text-[13px] font-extrabold text-brand-ink">{address.label}</div>
+        )}
+        {hideLabel && (
+          <div className="mb-[5px] text-[13px] font-extrabold text-brand-ink">Adres</div>
+        )}
+        <div className="text-[14.5px] leading-[1.65] font-medium text-brand-muted">{address.value}</div>
+      </div>
+    </div>
+  );
+}
+
+function AddressMap({ address }: { address: (typeof contact.addresses)[number] }) {
+  return (
+    <iframe
+      src={address.mapEmbedUrl}
+      className="h-[280px] w-full rounded-xl border border-brand-line bg-white"
+      style={{ border: 0 }}
+      loading="lazy"
+      title={`${address.label} — ORTUNÇ YGM`}
+    />
   );
 }
 
@@ -126,6 +132,7 @@ function ContactDetailsList({ address }: { address: (typeof contact.addresses)[n
           {contact.email}
         </a>
       </ContactInfoCard>
+      <AddressText address={address} hideLabel />
     </>
   );
 }
@@ -148,8 +155,8 @@ function OfficeBox({
         <div className="flex flex-col justify-center divide-y divide-brand-line">
           <ContactDetailsList address={address} />
         </div>
-        <div className="flex flex-col gap-[18px] border-brand-line pl-[22px] max-[900px]:mt-[22px] max-[900px]:border-t max-[900px]:border-l-0 max-[900px]:pt-[22px] max-[900px]:pl-0 min-[901px]:border-l">
-          <AddressBlock address={address} hideLabel />
+        <div className="border-brand-line pl-[22px] max-[900px]:mt-[22px] max-[900px]:border-t max-[900px]:border-l-0 max-[900px]:pt-[22px] max-[900px]:pl-0 min-[901px]:border-l">
+          <AddressMap address={address} />
         </div>
       </div>
     </div>

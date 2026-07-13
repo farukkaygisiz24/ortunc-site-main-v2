@@ -1,5 +1,3 @@
-import { isMevzuatGuncellemeleriEnabled } from "@/lib/featureFlags";
-
 export const siteInfo = {
   name: "ORTUNÇ Yetkilendirilmiş Gümrük Müşavirliği A.Ş.",
   shortName: "ORTUNÇ YGM",
@@ -99,7 +97,7 @@ export function getServiceCategory(slug: string): ServiceCategory | undefined {
   return serviceCategories.find((category) => category.slug === slug);
 }
 
-export { services, getServicesByCategory, homepageCarouselServices, getServiceHref, getYgmFeaturedServices, getYgmFeaturedHref } from "@/content/services";
+export { services, getServicesByCategory, homepageCarouselServices, getServiceHref, getYgmFeaturedServices, getYgmFeaturedHref, getYgmPageServices } from "@/content/services";
 export type { ServiceItem } from "@/content/services";
 
 import { getServiceHref, getServicesByCategory, getYgmFeaturedServices, getYgmFeaturedHref } from "@/content/services";
@@ -150,15 +148,7 @@ export const nav: NavItem[] = [
     groups: buildServicesNavGroups(),
   },
   { label: "Hakkımızda", href: "/hakkimizda" },
-  isMevzuatGuncellemeleriEnabled()
-    ? {
-        label: "Mevzuat",
-        children: [
-          { label: "Mevzuat", href: "/mevzuat" },
-          { label: "Mevzuat Güncellemeleri", href: "/mevzuat-guncellemeleri" },
-        ],
-      }
-    : { label: "Mevzuat", href: "/mevzuat" },
+  { label: "Mevzuat", href: "/mevzuat" },
   { label: "İletişim", href: "/iletisim" },
 ];
 

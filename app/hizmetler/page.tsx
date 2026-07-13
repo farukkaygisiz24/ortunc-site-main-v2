@@ -5,10 +5,11 @@ import SubPageHero from "@/components/SubPageHero";
 import ViewUp from "@/components/ui/ViewUp";
 import TriangleIcon from "@/components/ui/TriangleIcon";
 import {
-  buildServicesNavGroups,
   getServicesByCategory,
-  getYgmFeaturedServices,
+  getServiceHref,
+  getYgmFeaturedHref,
   serviceCategories,
+  services,
 } from "@/content/site-content";
 
 export const metadata: Metadata = {
@@ -18,8 +19,30 @@ export const metadata: Metadata = {
 };
 
 export default function HizmetlerPage() {
-  const navGroups = buildServicesNavGroups();
-  const totalServices = navGroups.reduce((n, g) => n + g.links.length, 0);
+  const ygmServices = getServicesByCategory("gumruk");
+  const danismanlikServices = getServicesByCategory("danismanlik");
+  const ygmCount = ygmServices.length;
+  const danismanlikCount = danismanlikServices.length;
+  const totalServices = services.length;
+
+  const serviceGroups = [
+    {
+      title: serviceCategories.find((c) => c.key === "gumruk")!.title,
+      href: "/hizmetler/ygm",
+      links: ygmServices.map((service) => ({
+        label: service.title,
+        href: getYgmFeaturedHref(service),
+      })),
+    },
+    {
+      title: serviceCategories.find((c) => c.key === "danismanlik")!.title,
+      href: "/hizmetler/danismanlik",
+      links: danismanlikServices.map((service) => ({
+        label: service.title,
+        href: getServiceHref("/hizmetler/danismanlik", service.slug),
+      })),
+    },
+  ];
 
   return (
     <>
@@ -36,9 +59,7 @@ export default function HizmetlerPage() {
           <div className="grid grid-cols-2 gap-[22px] max-[900px]:grid-cols-1">
             {serviceCategories.map((category) => {
               const count =
-                category.key === "gumruk"
-                  ? getYgmFeaturedServices().length
-                  : getServicesByCategory(category.key).length;
+                category.key === "gumruk" ? ygmCount : danismanlikCount;
               return (
                 <ViewUp key={category.slug} range="entry 0% cover 25%">
                   <Link
@@ -68,34 +89,43 @@ export default function HizmetlerPage() {
             })}
           </div>
 
-          <ViewUp className="mt-7 rounded-[18px] border border-brand-line bg-white px-12 py-[46px] max-[900px]:px-[22px] max-[900px]:py-7" range="entry 0% cover 22%">
-            <h2 className="m-0 text-[24px] font-extrabold text-brand-ink">Tüm hizmetlerimiz</h2>
-            <p className="mt-2.5 text-[14.5px] leading-[1.7] text-brand-muted">
-              YGM ve danışmanlık alanlarında sunduğumuz {totalServices} hizmete aşağıdan ulaşabilirsiniz.
-            </p>
-            <div className="mt-[34px] grid grid-cols-2 gap-11 max-[900px]:grid-cols-1">
-              {navGroups.map((group) => (
-                <div key={group.title}>
-                  <Link
-                    href={group.href}
-                    className="flex items-center gap-[7px] text-[12px] font-extrabold tracking-[.12em] text-brand-blue uppercase hover:underline"
-                  >
-                    <TriangleIcon size={9} />
-                    {group.title}
-                  </Link>
-                  <div className="mt-3.5 flex flex-col gap-1">
-                    {group.links.map((link) => (
-                      <Link
-                        key={link.href}
-                        href={link.href}
-                        className="-mx-2.5 rounded-lg px-2.5 py-2 text-[14px] leading-[1.45] font-semibold text-brand-ink transition-all hover:bg-brand-mist hover:pl-4 hover:text-brand-blue"
-                      >
-                        {link.label}
-                      </Link>
-                    ))}
+          <ViewUp className="relative mt-7 overflow-hidden rounded-[18px] border border-brand-line bg-white px-12 py-[46px] max-[900px]:px-[22px] max-[900px]:py-7" range="entry 0% cover 22%">
+            <Image
+              src="/images/onlylogo-watermark.png"
+              alt=""
+              width={220}
+              height={220}
+              className="pointer-events-none absolute -right-8 -bottom-10 h-[220px] w-auto -rotate-[8deg] opacity-[.09]"
+            />
+            <div className="relative z-[1]">
+              <h2 className="m-0 text-[24px] font-extrabold text-brand-ink">Tüm hizmetlerimiz</h2>
+              <p className="mt-2.5 text-[14.5px] leading-[1.7] text-brand-muted">
+                YGM ve danışmanlık alanlarında sunduğumuz {totalServices} hizmete aşağıdan ulaşabilirsiniz.
+              </p>
+              <div className="mt-[34px] grid grid-cols-2 gap-11 max-[900px]:grid-cols-1">
+                {serviceGroups.map((group) => (
+                  <div key={group.title}>
+                    <Link
+                      href={group.href}
+                      className="flex items-center gap-[7px] text-[12px] font-extrabold tracking-[.12em] text-brand-blue uppercase hover:underline"
+                    >
+                      <TriangleIcon size={9} />
+                      {group.title}
+                    </Link>
+                    <div className="mt-3.5 flex flex-col gap-1">
+                      {group.links.map((link) => (
+                        <Link
+                          key={link.href}
+                          href={link.href}
+                          className="-mx-2.5 rounded-lg px-2.5 py-2 text-[14px] leading-[1.45] font-semibold text-brand-ink transition-all hover:bg-brand-mist hover:pl-4 hover:text-brand-blue"
+                        >
+                          {link.label}
+                        </Link>
+                      ))}
+                    </div>
                   </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
           </ViewUp>
         </div>

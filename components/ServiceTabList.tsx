@@ -8,10 +8,11 @@ import {
   getServicesByCategory,
   getYgmFeaturedServices,
   serviceCategories,
+  services,
+  servicesSlogan,
 } from "@/content/site-content";
 import Kicker from "@/components/ui/Kicker";
 import ViewUp from "@/components/ui/ViewUp";
-import { servicesSlogan } from "@/content/site-content";
 
 export default function ServiceTabList() {
   const [tab, setTab] = useState<ServiceCategoryKey>("gumruk");
@@ -133,7 +134,7 @@ export default function ServiceTabList() {
 
         <div className="mt-6 flex justify-end">
           <Link href="/hizmetler" className="text-[14.5px] font-extrabold text-brand-blue hover:underline">
-            Tüm hizmetlerimiz →
+            Tüm hizmetlerimiz ({services.length}) →
           </Link>
         </div>
       </div>

@@ -52,10 +52,3 @@ npm run build
 ```
 
 Statik çıktı `out/` klasöründe oluşur.
-
-## Mevzuat senkronizasyonu
-
-```bash
-npm run sync:mevzuat
-npm run sync:mevzuat:details
-```

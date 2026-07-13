@@ -185,31 +185,6 @@ html {
   animation-play-state: paused;
 }
 
-.mevzuat-update-body {
-  color: #3a3b42;
-  font-size: 15px;
-  line-height: 1.75;
-}
-
-.mevzuat-update-body p {
-  margin: 0 0 1rem;
-}
-
-.mevzuat-update-body b,
-.mevzuat-update-body strong {
-  color: var(--color-brand-ink);
-}
-
-.mevzuat-update-body a {
-  color: var(--color-brand-blue);
-  text-decoration: underline;
-}
-
-.mevzuat-update-body ul,
-.mevzuat-update-body ol {
-  margin: 0 0 1rem 1.25rem;
-}
-
 @media (prefers-reduced-motion: reduce) {
   .animate-page-in,
   .animate-rise-in,
